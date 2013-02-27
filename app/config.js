@@ -25,7 +25,7 @@ define({
                 '.book-title-view': 'views/BookTitleView',
                 '.text-slot': 'views/BookSummaryTextView',
                 '.left-panel': 'views/BookSummaryMapView',
-                '.right-panel': 'views/PlaceFrequencyBarsView'
+                '.right-panel': 'views/EntityFrequencyBarsView'
             }
         },
         'reading-view': {
@@ -34,7 +34,7 @@ define({
             router: [
                 'book/:bookid/read', 
                 'book/:bookid/read/:pageid',
-                'book/:bookid/read/:pageid/:placeid'
+                'book/:bookid/read/:pageid/:entityid'
             ],
             slots: {
                 '.navigation-view': 'views/NavigationView',
@@ -55,36 +55,36 @@ define({
                 }
             }
         },
-        'place-view': {
+        'entity-view': {
             layout:  '#layout-book-2panel',
-            className: 'place-view',
-            router: 'book/:bookid/place/:placeid',
-            refreshOn: 'change:placeid',
+            className: 'entity-view',
+            router: 'book/:bookid/entity/:entityid',
+            refreshOn: 'change:entityid',
             slots: {
                 '.navigation-view': 'views/NavigationView',
                 '.book-title-view': 'views/BookTitleView',
                 '.left-panel': {
-                    className: 'place-summary panel fill padded-scroll',
+                    className: 'entity-summary panel fill padded-scroll',
                     slots: {
                         'this': [
-                            'views/PlaceSummaryView',
+                            'views/EntitySummaryView',
                             'views/BookReferencesView',
-                            'views/RelatedPlacesView'
+                            'views/RelatedEntitiesView'
                         ]
                     }
                 },
                 '.right-panel': {
                     layout: '#layout-full-top',
-                    className: 'place-view-right',
+                    className: 'entity-view-right',
                     slots: {
-                        '.top-slot': 'views/BookPlaceMapView',
-                        '.bottom-slot': 'views/BookPlaceFlickrView'
+                        '.top-slot': 'views/BookEntityMapView',
+                        '.bottom-slot': 'views/BookEntityFlickrView'
                     }
                 }
             }
         }
     },
-    // number of related places to show
+    // number of related entities to show
     relatedCount: 8,
     // number of book references to show
     bookRefCount: 5,

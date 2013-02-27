@@ -1,5 +1,5 @@
 /*
- * Related Places View
+ * Related Entities View
  */
 define(['gv', 'views/BookView', 'models/Collection',], function(gv, BookView, Collection) {
     var state = gv.state,
@@ -9,17 +9,17 @@ define(['gv', 'views/BookView', 'models/Collection',], function(gv, BookView, Co
     BookRefs = Collection.extend({
         model: Backbone.Model,
         initialize: function(models, opts) {
-            this.placeId = opts.placeId;
+            this.entityId = opts.entityId;
         },
         url: function() {
-            return gv.settings.API_ROOT + '/places/' + this.placeId + '/books.json';
+            return gv.settings.API_ROOT + '/entities/' + this.entityId + '/uris.json';
         },
         comparator: function(book) {
-            return -book.get('tokenCount');
+            return -book.get('souce');
         }
     });
     
-    // View: BookReferencesView (list of places)
+    // View: BookReferencesView (list of entities)
     return BookView.extend({
         className: 'book-refs-view loading',
         
@@ -28,22 +28,22 @@ define(['gv', 'views/BookView', 'models/Collection',], function(gv, BookView, Co
         render: function() {
             var view = this,
                 book = view.model,
-                placeId = state.get('placeid'),
+                entityId = state.get('entityid'),
                 refs;
-            // if no place has been set, give up
-            if (!placeId) return;
+            // if no entity has been set, give up
+            if (!entityId) return;
             // create collection and fetch
-            refs = view.refs = new BookRefs([], { placeId: placeId });
+            refs = view.refs = new BookRefs([], { entityId: entityId });
             refs.fetch({
                 success: function() {
                     view.renderRefs();
                 },
                 error: function() {
-                    if (DEBUG) console.error('Failed to load related places');
+                    if (DEBUG) console.error('Failed to load related entities');
                 }
             });
-            // create content
-            view.$el.append('<h4>Book References</h4>');
+            // create content			
+			view.$el.append('<h4>External URIs</h4>');
             return this;
         },
         
@@ -52,36 +52,19 @@ define(['gv', 'views/BookView', 'models/Collection',], function(gv, BookView, Co
                 refs = view.refs,
                 bookId = state.get('bookid'),
                 // just make the template inline
-                template = _.template('<p><span class="book-title control on" data-book-id="<%= id %>">' +
-                    '<%= title %></span> (<%= tokenCount %>)</p>');
+                template = _.template('<p><span class="book-title control on"><a href="<%= url %>" target="_blank">' +
+                    '<%= source %></a></span></p>');
             view.$el.removeClass('loading');
             // create list
-            refs = refs.filter(function(book) {
+            /*refs = refs.filter(function(book) {
                 return book.id != bookId;
-            });
+            });*/
             if (refs.length)
-                refs.slice(0, gv.settings.bookRefCount)
-                .forEach(function(book) {
+               // refs.slice(0, gv.settings.bookRefCount)
+                refs.forEach(function(book) {
                     view.$el.append(template(book.toJSON()));
-                });
+                });			
             else view.$el.append('<p>No other book references were found.</p>');
-        },
-        
-        // UI Event Handlers - update state
-        
-        events: {
-            'click span.book-title': 'uiRefClick'
-        },
-        
-        uiRefClick: function(e) {
-            var bookId = $(e.target).attr('data-book-id'),
-                placeId = state.get('placeid');
-            if (bookId) {
-                state.set('bookid', bookId);
-                // reset place
-                state.set({ placeid: placeId });
-                gv.app.updateView(true);
-            }
         }
     });
     

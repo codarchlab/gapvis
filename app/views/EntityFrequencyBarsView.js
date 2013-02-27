@@ -1,12 +1,12 @@
 /*
- * Place Frequency Bar Chart View
+ * Entity Frequency Bar Chart View
  */
 define(['gv', 'views/BookView'], function(gv, BookView) {
     var state = gv.state,
-        PlaceFrequencyBarsView;
+        EntityFrequencyBarsView;
     
     // View: BookTitleView (title and metadata)
-    PlaceFrequencyBarsView =  BookView.extend({
+    EntityFrequencyBarsView =  BookView.extend({
         className: 'freq-bars-view panel padded-scroll fill loading',
         template: '#bars-header-template',
         
@@ -21,33 +21,36 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             _.extend(view.settings, view.options);
             // listen for state changes
             view.bindState('change:barsort', function() {
-                // XXX: is this the right place for this logic?
-                var places = view.model.places,
+                // XXX: is this the right entity for this logic?
+                var entities = view.model.entities,
                     sort = state.get('barsort');
-                places.comparator = function(place) {
-                    return sort == 'ref' ? 
-                        -place.get('frequency') :
-                        place.get('title')
+                entities.comparator = function(entity) {
+                    if (sort == 'ref') 
+                        return -entity.get('frequency') ;
+					else if (sort == 'alpha')	
+                        return entity.get('title');
+					else
+						return entity.get('type');						
                 };
-                places.sort();
+                entities.sort();
                 view.render();
             });
         },
         
         render: function() {
             var view = this,
-                singlePlace = !!view.options.place,
+                singleEntity = !!view.options.entity,
                 book = view.model,
-                places = singlePlace ? [view.options.place] : book.places.models,
+                entities = singleEntity ? [view.options.entity] : book.entities.models,
                 settings = view.settings,
                 buckets = settings.buckets,
                 color = settings.color,
                 hicolor = settings.hicolor,
                 frequency = function(d) { return d.get('frequency') },
-                max = d3.max(places, frequency),
+                max = d3.max(entities, frequency),
                 bh = 12,
                 w = 250,
-                lw = singlePlace ? 0 : 100,
+                lw = singleEntity ? 0 : 200,
                 spacing = 3,
                 x = d3.scale.linear()
                     .domain([0, max])
@@ -64,7 +67,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var $container = $('<div></div>').appendTo(view.el);
             
             // title if we're showing the whole book
-            if (!singlePlace) {
+            if (!singleEntity) {
                 $container.append(view.template);
                 view.renderControls();
             }
@@ -72,7 +75,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // create svg container
             var svg = d3.select($container[0])
               .append('svg:svg')
-                .attr('height', (bh + spacing) * places.length + (singlePlace ? 0 : 10))
+                .attr('height', (bh + spacing) * entities.length + (singleEntity ? 0 : 10))
                 // delegated handler: click
                 .on('click', function() {
                     var target = d3.event.target,
@@ -83,7 +86,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                         var pageId = pages.at(~~((pages.length * data.idx)/buckets)).id;
                         state.set({
                             // scrolljump: true,
-                            placeid: pdata.id,
+                            entityid: pdata.id,
                             pageid: pageId,
                             view: 'reading-view'
                         });
@@ -91,15 +94,15 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                     // label click
                     if ($(target).is('text.title')) {
                         state.set({
-                            placeid: pdata.id,
-                            view: 'place-view'
+                            entityid: pdata.id,
+                            view: 'entity-view'
                         });
                     }
                 })
                 // delegated handler: mouseover
                 .on('mouseover', function() {
                     var $target = $(d3.event.target);
-                    if ($target.is('rect')) {
+                    if ($target.is('rect')&& !($target.is('.PERSON')||$target.is('.PLACE')||$target.is('.GEOGRAPHY')||$target.is('.ORGANISATION'))) {
                         d3.select(d3.event.target)
                             .style('fill', hicolor)
                     }
@@ -107,7 +110,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 // delegated handler: mouseout
                 .on('mouseout', function() {
                     var $target = $(d3.event.target);
-                    if ($target.is('rect') && !$target.is('.selected')) {
+                    if ($target.is('rect') && !$target.is('.selected')&& !($target.is('.PERSON')||$target.is('.PLACE')||$target.is('.GEOGRAPHY')||$target.is('.ORGANISATION'))) {
                         d3.select(d3.event.target)
                             .style('fill', color)
                     }
@@ -122,8 +125,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                     .range([0, w]);
                     
             // create and cache spark data
-            places.forEach(function(place) {
-                if (!place.get('sparkData')) {
+            entities.forEach(function(entity) {
+                if (!entity.get('sparkData')) {
                     // make the sparkline data
                     var sdata = d3.range(0, buckets)
                         .map(function(d,i) {
@@ -133,17 +136,17 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                             }
                         });
                     pages.each(function(p, pi) {
-                        var pplaces = p.get('places'),
+                        var pentities = p.get('entities'),
                             pidx = sidx(pi);
-                        if (pplaces && pplaces.indexOf(place.id) >= 0) {
+                        if (pentities && pentities.indexOf(entity.id) >= 0) {
                             sdata[pidx].count++;
                         }
                     });
-                    place.set({ sparkData: sdata });
+                    entity.set({ sparkData: sdata });
                 }
             });
                 
-            var sparkMax = d3.max(places, function(d) { 
+            var sparkMax = d3.max(entities, function(d) { 
                     return d3.max(d.get('sparkData'), function(sd) { return sd.count }) 
                 }),
                 sy = d3.scale.linear()
@@ -152,7 +155,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             
             // sparkline container
             var spark = svg.selectAll('g.spark')
-                .data(places)
+                .data(entities)
               .enter().append('svg:g')
                 .attr('class', 'spark')
                 .attr("transform", function(d, i) { return "translate(0," + y(d,i) + ")"; });
@@ -165,8 +168,16 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 .attr('y2', bh)
                 .style('stroke', '#999')
                 .style('stroke-width', .5);
+				
+			  // test!
+            spark.append('svg:rect')
+                .attr('y', 0)
+                .attr('x', 0)
+                .attr('width', lw)
+                .attr('height', 12)
+				.attr('class', function(d) { return d.get('type') });
                 
-            // bars
+            // bars			
             spark.selectAll('rect')
                 .data(function(d) { return d.get('sparkData') })
               .enter().append('svg:rect')
@@ -182,22 +193,25 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                             .style('cursor', 'pointer');
                     }
                 });
+				
+				
             
-            // leave out labels for single place
-            if (!singlePlace) {
-                // place title
+            // leave out labels for single entity
+            if (!singleEntity) {
+                // entity title
                 spark.append('svg:text')
                     .attr('class', 'title')
                     .style('fill', 'black')
+					.style('background', 'magenta')
                     .attr('x', lw - 8)
                     .attr('y', 0)
                     .attr("dx", 3)
                     .attr("dy", "1em")
-                    .text(function(d) { return d.get('title') });
+                    .text(function(d) { var returnstring = (d.get('title').length > 38) ?  d.get('title').substr(0,35)+'...' :  d.get('title'); return returnstring });
                 
                 // frequency label
                 svg.selectAll('text.freq')
-                    .data(places)
+                    .data(entities)
                   .enter().append('svg:text')
                     .attr('class', 'freq')
                     .style('fill', 'black')
@@ -218,6 +232,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // render
             view.$('.ref').toggleClass('on', barSort != 'ref');
             view.$('.alpha').toggleClass('on', barSort != 'alpha');
+			view.$('.type').toggleClass('on', barSort != 'type');
         },
         
         // highlight the current page
@@ -248,23 +263,31 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         
         events: {
             'click .ref.on':       'uiSort',
-            'click .alpha.on':     'uiSort'
+            'click .alpha.on':     'uiSort',
+			'click .type.on':     'uiSort'
         },
         
         uiSort: function(e) {
-            state.set({ barsort: $(e.target).is('.ref') ? 'ref' : 'alpha' })
+			var setsort;
+			if ($(e.target).is('.ref'))
+				setsort = 'ref';
+			else if ($(e.target).is('.alpha'))
+				setsort = 'alpha';	
+			else
+				setsort = 'type';
+            state.set({ barsort: setsort })
         }
         
     });
     
     // no d3 option
     if (window.nod3) {
-        PlaceFrequencyBarsView = PlaceFrequencyBarsView.extend({
+        EntityFrequencyBarsView = EntityFrequencyBarsView.extend({
             render: $.noop,
             updateHighlight: $.noop
         });
     }
     
-    return PlaceFrequencyBarsView;
+    return EntityFrequencyBarsView;
     
 });

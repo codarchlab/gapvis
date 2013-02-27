@@ -5,7 +5,7 @@ define(function() {
 
     // removed in production by uglify
     if (DEBUG) {
-        API_ROOT = '/api';
+        API_ROOT = '/hellespont-api';
         REPORT_URL = '/api/flags/';
         API_DATA_TYPE = 'json';
     }

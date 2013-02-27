@@ -12,7 +12,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var view = this;
             // listen for all state changes
             view.bindState('change', view.updatePermalink, view);
-            view.bindState('change:placeid', view.updateNavButtons, view);
+            view.bindState('change:entityid', view.updateNavButtons, view);
             view.bindState('change:view', view.updateNavButtons, view);
         },
         
@@ -33,12 +33,12 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         },
         
         updateNavButtons: function() {
-            // enable/disable place view
-            var $placeButton = this.$('[data-view-id=place-view]'),
+            // enable/disable entity view
+            var $entityButton = this.$('[data-view-id=entity-view]'),
                 d = 'disabled';
-            state.get('placeid') ?
-                $placeButton.removeClass(d).removeAttr(d) :
-                $placeButton.addClass(d).attr(d, d);
+            state.get('entityid') ?
+                $entityButton.removeClass(d).removeAttr(d) :
+                $entityButton.addClass(d).attr(d, d);
             // check the appropriate button
             this.$('button').each(function() {
                 var $this = $(this);
@@ -53,11 +53,16 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         },
         
         uiGoToView: function(evt) {
-            // get view from id
-            var viewKey = $(evt.target)
-                .closest('[data-view-id]')
-                .attr('data-view-id');
-            state.set({ 'view': viewKey });
+            // get view from id			
+			if ($(evt.target).attr('title')!= 'Legend'){
+				var viewKey = $(evt.target)
+					.closest('[data-view-id]')
+					.attr('data-view-id');
+				state.set({ 'view': viewKey });
+			}
+			else {	 
+                 $('#legend').slideToggle('slow'); 
+			}
         }
         
     

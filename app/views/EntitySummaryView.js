@@ -1,15 +1,15 @@
 /*
  * TimeMap View
  */
-define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'], 
-    function(gv, BookView, PlaceFrequencyBarsView) {
+define(['gv', 'views/BookView', 'views/EntityFrequencyBarsView'], 
+    function(gv, BookView, EntityFrequencyBarsView) {
     
     var state = gv.state;
     
-    // View: PlaceSummaryView
+    // View: EntitySummaryView
     return BookView.extend({
-        className: 'place-summary-view loading',
-        template: '#place-summary-template',
+        className: 'entity-summary-view loading',
+        template: '#entity-summary-template',
         
         clear: function() {
             this.freqBars && this.freqBars.clear();
@@ -21,22 +21,22 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
         render: function() {
             var view = this,
                 book = view.model,
-                placeId = state.get('placeid'),
-                place;
-            // if no map or place has been set, give up
-            if (!placeId) {
+                entityId = state.get('entityid'),
+                entity;
+            // if no map or entity has been set, give up
+            if (!entityId) {
                 return;
             }
-            // get the place
-            place = book.places.get(placeId);
-            place.ready(function() {
+            // get the entity
+            entity = book.entities.get(entityId);
+            entity.ready(function() {
                 view.$el.removeClass('loading');
                 // create content
-                view.renderTemplate(place.toJSON());
+                view.renderTemplate(entity.toJSON());
                 // add frequency bars
-                var freqBars = view.freqBars = new PlaceFrequencyBarsView({
+                var freqBars = view.freqBars = new EntityFrequencyBarsView({
                     model: book,
-                    place: place,
+                    entity: entity,
                     el: view.$('div.frequency-bars')[0]
                 });
                 // render sub-elements

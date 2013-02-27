@@ -1,7 +1,7 @@
 // production settings
 module.exports = {
-    API_ROOT: 'http://gap.alexandriaarchive.org',
-    REPORT_URL: 'http://gap.alexandriaarchive.org/flags/',
+    API_ROOT: 'localhost',
+    REPORT_URL: 'localhost/flags/',
     API_DATA_TYPE: 'json',
     DEBUG: false
 };

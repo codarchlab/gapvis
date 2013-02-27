@@ -1,5 +1,5 @@
 /*
- * Place Detail Map View
+ * Entity Detail Map View
  */
 define(['gv', 'views/BookView'], function(gv, BookView) {
     var state = gv.state,
@@ -8,41 +8,41 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         mapStyle = settings.mapStyle,
         colorThemes = settings.colorThemes;
     
-    // View: BookPlaceMapView (map content for the place detail page)
+    // View: BookEntityMapView (map content for the entity detail page)
     return BookView.extend({
-        className: 'place-map-view panel fill',
+        className: 'entity-map-view panel fill',
         
         // render and update functions
         
         render: function() {
             if (DEBUG && !window.google) return;
             var view = this,
-                placeId = state.get('placeid'),
+                entityId = state.get('entityid'),
                 book = view.model,
-                place;
+                entity;
                 
-            // if no place has been set, give up
-            if (!placeId) return;
-            // get the place
-            place = book.places.get(placeId),
+            // if no entity has been set, give up
+            if (!entityId) return;
+            // get the entity
+            entity = book.entities.get(entityId),
             
-            // load map when the place is ready 
-            place.ready(function() {
-                var related = place.related(book).slice(0, settings.relatedCount),
-                    placePoint = place.gmapLatLng(),
+            // load map when the entity is ready 
+            entity.ready(function() {
+                var related = entity.related(book).slice(0, settings.relatedCount),
+                    entityPoint = entity.gmapLatLng(),
                     gmaps = google.maps,
                     colorScale = d3.scale.quantize()
-                        .domain([1, book.places.first().get('frequency')])
+                        .domain([1, book.entities.first().get('frequency')])
                         .range(colorThemes),
                     strokeScale = d3.scale.linear()
                         .domain([1, d3.max(related, function(d) { return d.count })])
                         .range([1,10]),
                     // determine bounds
                     bounds = related.reduce(function(bounds, r) {
-                            return bounds.extend(r.place.gmapLatLng());
+                            return bounds.extend(r.entity.gmapLatLng());
                         }, new gmaps.LatLngBounds())
-                        // include current place
-                        .extend(placePoint),
+                        // include current entity
+                        .extend(entityPoint),
                     $container = $('<div></div>').appendTo(view.el);
                 
                 // deal with layout issues - div must be visible in DOM before map initialization
@@ -60,15 +60,15 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                     // set bounds
                     gmap.fitBounds(bounds);
                     
-                    function addMarker(place, opts) {
+                    function addMarker(entity, opts) {
                         opts = opts || {};
-                        var theme = colorScale(place.get('frequency')),
+                        var theme = colorScale(entity.get('frequency')),
                             w = 18,
                             c = w/2,
                             size = new gmaps.Size(w, w),
                             anchor = new gmaps.Point(c, c);
                             
-                        title = opts.title || place.get('title');
+                        title = opts.title || entity.get('title');
                         icon = opts.icon || TimeMapTheme.getCircleUrl(w, theme.color, '99');
                         
                         // add marker
@@ -81,7 +81,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                                 anchor,
                                 size
                             ),
-                            position: place.gmapLatLng(), 
+                            position: entity.gmapLatLng(), 
                             map: gmap, 
                             title: title,
                             clickable: !opts.noclick,
@@ -91,7 +91,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                         if (!opts.noclick) {
                             // UI listener
                             gmaps.event.addListener(marker, 'click', function() {
-                                state.set({ placeid: place.id });
+                                state.set({ entityid: entity.id });
                                 gv.app.updateView(true);
                             });
                         }
@@ -99,18 +99,18 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                         markers.push(marker);
                     }
                     
-                    // add markers for current place
-                    addMarker(place, { 
+                    // add markers for current entity
+                    addMarker(entity, { 
                         icon: 'images/star.png',
                         noclick: true,
                         zIndex: 1000
                     });
                     
-                    // add markers and lines for related places
+                    // add markers and lines for related entities
                     related.forEach(function(r) {
                         // add polyline
                         new gmaps.Polyline({
-                            path: [placePoint, r.place.gmapLatLng()],
+                            path: [entityPoint, r.entity.gmapLatLng()],
                             map: gmap,
                             clickable: false,
                             geodesic: true,
@@ -119,8 +119,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                             strokeWeight: strokeScale(r.count)
                         });
                         // add marker
-                        addMarker(r.place, {
-                            title: r.place.get('title') + ': ' + 
+                        addMarker(r.entity, {
+                            title: r.entity.get('title') + ': ' + 
                                 r.count + ' co-reference' + 
                                 (r.count > 1 ? 's' : '')
                         });

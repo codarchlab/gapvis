@@ -19,7 +19,7 @@ define(['gv', 'views/BookView', 'models/Flag'], function(gv, BookView, Flag) {
             flag.ready(function() {
                 // set the page id
                 state.set({ pageid: flag.get('pageID') });
-                state.set({ placeid: flag.get('placeID') });
+                state.set({ entityid: flag.get('entityID') });
                 callback();
             });
         },

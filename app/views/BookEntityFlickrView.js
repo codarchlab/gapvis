@@ -1,13 +1,13 @@
 /*
- * Place Detail Flickr View
+ * Entity Detail Flickr View
  */
 define(['gv', 'views/BookView'], function(gv, BookView) {
     var state = gv.state,
-        FLICKR_URL_BASE = 'http://api.flickr.com/services/feeds/photos_public.gne?tags=pleiades%3Aplace%3D[id]&format=json&jsoncallback=?';
+        FLICKR_URL_BASE = 'http://api.flickr.com/services/feeds/photos_public.gne?tags=pleiades%3Aentity%3D[id]&format=json&jsoncallback=?';
     
-    // View: BookPlaceFlickrView (Flickr photos for the place detail page)
+    // View: BookEntityFlickrView (Flickr photos for the entity detail page)
     return BookView.extend({
-        className: 'place-flickr-view panel fill',
+        className: 'entity-flickr-view panel fill',
         template: '#flickr-photos-template',
     
         initialize: function() {
@@ -16,20 +16,20 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         
         render: function() {
             var view = this,
-                placeId = state.get('placeid');
+                entityId = state.get('entityid');
                 
             // render main template
             view.$el.html(view.template);
                 
-            // die if no place
-            if (!placeId) return;
+            // die if no entity
+            if (!entityId) return;
             
             // add loading spinner
             view.$el.addClass('loading');
              
-            // get Flickr data for this place
+            // get Flickr data for this entity
             $.ajax({
-                url: FLICKR_URL_BASE.replace('[id]', placeId),
+                url: FLICKR_URL_BASE.replace('[id]', entityId),
                 dataType: 'jsonp',
                 success: function(data) {
                     view.$el.removeClass('loading');

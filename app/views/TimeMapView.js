@@ -53,7 +53,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
                 book = view.model,
                 // create themes by frequency
                 colorScale = d3.scale.quantize()
-                    .domain([1, book.places.first().get('frequency')])
+                    .domain([1, book.entities.first().get('frequency')])
                     .range(colorThemes),
                 labelUtils = view.getLabeller();
             
@@ -66,19 +66,19 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
             view.bindState('change:autoplay',   view.renderAutoplayControls, view);
             // cancel autoplay on other UI events
             view.bindState('change:topview',    view.stopAutoplay, view);
-            view.bindState('change:placeid',    view.stopAutoplay, view);
+            view.bindState('change:entityid',    view.stopAutoplay, view);
             view.bindState('change:pageid',     view.stopAutoplay, view);
             
             // render template HTML
             view.$el.html(view.template);
             
             // custom info window function
-            function openPlaceWindow() {
+            function openEntityWindow() {
                 var item = this,
                     opts = item.opts;
                 // ugh - order matters here
                 state.set({ pageid: opts.page.id });
-                state.set({ placeid: opts.place.id });
+                state.set({ entityid: opts.entity.id });
             }
             
             // create a new loader class for progressive loading of in-memory items
@@ -115,7 +115,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
                     mapSelector: view.$(".map"),
                     timelineSelector: view.$(".timeline"),
                     options: {
-                        openInfoWindow: openPlaceWindow,
+                        openInfoWindow: openEntityWindow,
                         closeInfoWindow: $.noop,
                         mapCenter: mapCenter,
                         mapZoom: mapZoom,
@@ -123,7 +123,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
                     },
                     datasets: [
                         {
-                            id: "places",
+                            id: "entities",
                             theme: TimeMapTheme.createCircleTheme(),
                             type: "progressive",
                             type: "progressive",
@@ -140,7 +140,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
                                 loader: new InMemoryProgressiveLoader({
                                     // standard loader options
                                     transformFunction: function(item) {
-                                        var theme = colorScale(item.options.place.get('frequency')),
+                                        var theme = colorScale(item.options.entity.get('frequency')),
                                             opts = item.options,
                                             size = 18,
                                             color = theme.color,

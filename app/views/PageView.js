@@ -14,7 +14,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
                 page = view.model;
             // listen for state changes
             view.bindState('change:pageview',   view.renderPageView, view);
-            view.bindState('change:placeid',    view.renderPlaceHighlight, view);
+            view.bindState('change:entityid',    view.renderEntityHighlight, view);
             // set backreference
             page.view = view;
             // load page
@@ -27,7 +27,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             var view = this;
             view.renderTemplate();
             view.renderPageView();
-            view.renderPlaceHighlight();
+            view.renderEntityHighlight();
             return view;
         },
         
@@ -39,11 +39,11 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             view.$('.img').toggle(pageView == 'image');
         },
         
-        renderPlaceHighlight: function() {
-            var placeId = state.get('placeid');
+        renderEntityHighlight: function() {
+            var entityId = state.get('entityid');
             // render
-            this.$('span.place').each(function() {
-                $(this).toggleClass('hi', $(this).attr('data-place-id') == placeId);
+            this.$('span.entity').each(function() {
+                $(this).toggleClass('hi', $(this).attr('data-entity-id') == entityId);
             });
         },
         
@@ -59,13 +59,13 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
         // UI Event Handlers - update state
         
         events: {
-            'click .place':     'uiPlaceClick'
+            'click .entity':     'uiEntityClick'
         },
         
-        uiPlaceClick: function(e) {
-            var placeId = $(e.target).attr('data-place-id');
-            if (placeId) {
-                state.set('placeid', placeId);
+        uiEntityClick: function(e) {
+            var entityId = $(e.target).attr('data-entity-id');
+            if (entityId) {
+                state.set('entityid', entityId);
             }
         }
         

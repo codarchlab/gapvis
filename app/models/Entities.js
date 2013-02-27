@@ -1,16 +1,16 @@
 /*
- * Place models
+ * Entity models
  */
 define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collection) {
     var settings = gv.settings,
-        Place;
+        Entity;
        
-    // Model: Place
-    Place = Model.extend({
-        type: 'place',
+    // Model: Entity
+    Entity = Model.extend({
+        type: 'entity',
     
         defaults: {
-            title: "Untitled Place",
+            title: "Untitled Entity",
             frequency: 0
         },
         
@@ -18,23 +18,23 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
             return !!this.get('uri');
         },
         
-        // calculate related places within a book
+        // calculate related entities within a book
         related: function(book) {
-            var place = this,
+            var entity = this,
                 key = 'related-' + book.id,
-                related = place.get(key);
+                related = entity.get(key);
             if (!related) {
-                // calculate related places
+                // calculate related entities
                 related = {};
                 book.pages.each(function(page) {
-                    var pplaces = page.get('places');
-                    if (pplaces && pplaces.indexOf(place.id) >= 0) {
-                        pplaces.forEach(function(p) {
-                            if (p != place.id) {
-                                var rkey = [p, place.id].sort().join('-');
+                    var pentities = page.get('entities');
+                    if (pentities && pentities.indexOf(entity.id) >= 0) {
+                        pentities.forEach(function(p) {
+                            if (p != entity.id) {
+                                var rkey = [p, entity.id].sort().join('-');
                                 if (!(rkey in related)) {
                                     related[rkey] = {
-                                        place: book.places.get(p),
+                                        entity: book.entities.get(p),
                                         count: 0
                                     };
                                 }
@@ -48,7 +48,7 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
                 // save
                 var o = {};
                 o[key] = related;
-                place.set(o);
+                entity.set(o);
             }
             return related;
         },
@@ -59,14 +59,14 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
         }
     });
     
-    // Collection: PlaceList
+    // Collection: EntityList
     return Collection.extend({
-        model: Place,
+        model: Entity,
         url: function() {
-            return settings.API_ROOT + '/places' 
+            return settings.API_ROOT + '/entities' 
         },
-        comparator: function(place) {
-            return -place.get('frequency')
+        comparator: function(entity) {
+            return -entity.get('frequency')
         }
     });
     

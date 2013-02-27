@@ -18,7 +18,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 markers = view.markers = [],
                 gmaps = google.maps,
                 colorScale = d3.scale.quantize()
-                    .domain([1, book.places.first().get('frequency')])
+                    .domain([1, book.entities.first().get('frequency')])
                     .range(colorThemes),
                 bounds = book.gmapBounds(),
                 $container = $('<div></div>').appendTo(view.el);
@@ -40,8 +40,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 // set bounds
                 gmap.fitBounds(bounds);
                 
-                book.places.each(function(place) {
-                    var theme = colorScale(place.get('frequency')),
+                book.entities.each(function(entity) {
+                    var theme = colorScale(entity.get('frequency')),
                         w = 10,
                         c = w/2,
                         icon = TimeMapTheme.getCircleUrl(w, theme.color, '99');
@@ -55,14 +55,14 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                                 anchor,
                                 size
                             ),
-                            position: place.gmapLatLng(), 
+                            position: entity.gmapLatLng(), 
                             map: gmap, 
-                            title: place.get('title')
+                            title: entity.get('title')
                         });
                     // UI listener
                     gmaps.event.addListener(marker, 'click', function() {
-                        state.set({ placeid: place.id });
-                        state.set({ view: 'place-view' });
+                        state.set({ entityid: entity.id });
+                        state.set({ view: 'entity-view' });
                     });
                     markers.push(marker);
                 });

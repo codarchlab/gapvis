@@ -1,8 +1,8 @@
 /*
  * TimeMap View
  */
-define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'], 
-    function(gv, BookView, PlaceFrequencyBarsView) {
+define(['gv', 'views/BookView', 'views/EntityFrequencyBarsView'], 
+    function(gv, BookView, EntityFrequencyBarsView) {
     
     var state = gv.state;
     
@@ -14,7 +14,7 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
         initialize: function() {
             var view = this;
             // listen for state changes
-            view.bindState('change:placeid',    view.render, view);
+            view.bindState('change:entityid',    view.render, view);
             view.bindState('change:pageid',     view.renderNextPrevControl, view);
             view.bindState('change:pageid',     view.renderBarHighlight, view);
             view.bindState('change:mapzoom',    view.renderZoomControl, view);
@@ -38,25 +38,25 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
             var view = this,
                 book = view.model,
                 map = view.map,
-                placeId = state.get('placeid'),
-                place;
+                entityId = state.get('entityid'),
+                entity;
             // if no map has been set, give up
             if (!map) return;
-            // if there's no place selected, close the window
-            if (!placeId) {
+            // if there's no entity selected, close the window
+            if (!entityId) {
                 map.closeBubble();
                 return;
             }
-            // get the place
-            place = book.places.get(placeId);
-            // if the place isn't fully loaded, do so
-            place.ready(function() {
+            // get the entity
+            entity = book.entities.get(entityId);
+            // if the entity isn't fully loaded, do so
+            entity.ready(function() {
                 // create content
-                view.renderTemplate(place.toJSON());
+                view.renderTemplate(entity.toJSON());
                 // add frequency bars
-                var freqBars = view.freqBars = new PlaceFrequencyBarsView({
+                var freqBars = view.freqBars = new EntityFrequencyBarsView({
                     model: book,
-                    place: place,
+                    entity: entity,
                     el: view.$('div.frequency-bars')[0]
                 });
                 // render sub-elements
@@ -66,10 +66,10 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
                 view.renderNextPrevControl();
                 // open bubble
                 map.openBubble(view.getPoint(), view.el);
-                // set a handler to unset place if close is clicked
+                // set a handler to unset entity if close is clicked
                 function handler() {
-                    if (state.get('placeid') == placeId) {
-                        state.unset('placeid');
+                    if (state.get('entityid') == entityId) {
+                        state.unset('entityid');
                     }
                     map.closeInfoBubble.removeHandler(handler);
                 }
@@ -84,11 +84,11 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
         renderNextPrevControl: function() {
             var view = this,
                 pageId = state.get('pageid'),
-                placeId = state.get('placeid');
+                entityId = state.get('entityid');
             view.ready(function() {
                 var book = view.model,
-                    prev = view.prev = book.prevPlaceRef(pageId, placeId),
-                    next = view.next = book.nextPlaceRef(pageId, placeId);
+                    prev = view.prev = book.prevEntityRef(pageId, entityId),
+                    next = view.next = book.nextEntityRef(pageId, entityId);
                 view.$('.prev').toggleClass('on', !!prev);
                 view.$('.next').toggleClass('on', !!next);
                 view.$('.controls').toggle(!!(prev || next));
@@ -103,9 +103,9 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
         },
         
         getPoint: function() {
-            var placeId = state.get('placeid'),
-                place = this.model.places.get(placeId),
-                ll = place.get('ll');
+            var entityId = state.get('entityid'),
+                entity = this.model.entities.get(entityId),
+                ll = entity.get('ll');
             return new mxn.LatLonPoint(ll[0], ll[1]);
         },
         
@@ -115,7 +115,7 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
             'click span.zoom.on':       'uiZoom',
             'click span.next.on':       'uiNext',
             'click span.prev.on':       'uiPrev',
-            'click span.goto-place':    'uiGoToPlace'
+            'click span.goto-entity':    'uiGoToEntity'
         },
         
         uiZoom: function() {
@@ -135,8 +135,8 @@ define(['gv', 'views/BookView', 'views/PlaceFrequencyBarsView'],
             state.set({ pageid: this.prev });
         },
         
-        uiGoToPlace: function() {
-            state.set({ 'view': 'place-view' });
+        uiGoToEntity: function() {
+            state.set({ 'view': 'entity-view' });
         }
     });
     

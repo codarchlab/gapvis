@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2011, Nick Rabinowitz / Google Ancient Places Project
+ * Copyright (c) 2011, Nick Rabinowitz / Google Ancient Entities Project
  * Licensed under the BSD License (see LICENSE.txt)
  */
 
@@ -35,7 +35,7 @@ require(['gv', 'config', 'models/Books', 'models/State', 'views/AppView', 'views
     // add parameters for permalinks
     gv.addParameter('bookid', { deserialize: parseInt });
     gv.addParameter('pageid', { deserialize: String });
-    gv.addParameter('placeid', { deserialize: parseInt });
+    gv.addParameter('entityid', { deserialize: String });
     gv.addParameter('pageview');
     gv.addParameter('barsort');
     gv.addParameter('mapzoom', { deserialize: parseInt });

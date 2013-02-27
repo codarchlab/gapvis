@@ -217,8 +217,7 @@ footer {
     padding: 1em; 
 }
 
-.place {
-    color: @linkColor;
+.entity {
     cursor: pointer;
     font-weight: bold;
     
@@ -227,7 +226,7 @@ footer {
     }
     
     &.hi {
-        background: yellow;
+       color: white;
     }
 }
 
@@ -251,7 +250,7 @@ footer {
 }
 
 // summary page map view
-.summary-map-view, .place-map-view {
+.summary-map-view, .entity-map-view {
     width: 100%;
     overflow: auto;
     
@@ -262,10 +261,23 @@ footer {
 
 // place frequency bars view
 .freq-bars-view {
+		.PLACE {
+			fill:  	#FFFF66;
+		}
+		.PERSON {
+			fill: #FFCCCC;
+		}
+		.GEOGRAPHY {
+			fill: #99FF66;
+		}
+		.ORGANISATION {
+			fill:  #66CCFF;
+		}
     text.title {
         text-anchor: end;
         font-size: 10px;
         cursor: pointer;
+		
     }
 }
 
@@ -280,7 +292,7 @@ footer {
 // navigation bar for book layouts
 .navigation-view {
     float: right;
-    width: 410px;
+    width: 475px;
     margin-left: 20px;
     text-align: right;
     
@@ -363,7 +375,7 @@ footer {
 }
 
 // page summary view
-.place-summary {
+.entity-summary {
     font-family: @serifFontFamily;
     
     p {
@@ -376,17 +388,17 @@ footer {
         margin: 0 0 .5em 0;
     }
 }
-.related-places-view, .book-refs-view {
+.related-entities-view, .book-refs-view {
     h4 {
         margin-top: 0;
     }
 }
-.related-places-view p {
+.related-entities-view p {
     font-size: .88em;
 }
 
 // flickr photos
-.place-flickr-view {
+.entity-flickr-view {
     > div {
         padding: 10px;
     }
@@ -407,7 +419,7 @@ footer {
         margin: 0 10px 10px 0;
     }
 }
-.place-view-right.layout-full-top .bottom-slot {
+.entity-view-right.layout-full-top .bottom-slot {
     height: 130px;
 }
 
@@ -522,4 +534,30 @@ div.timeline-event-label {
     .panel.padded-scroll {
         max-height: 10em;
     }
+}
+
+.PERSON {
+	background: #FFCCCC;
+	fill: #FFCCCC;
+}
+
+.PLACE {
+	background: #FFFF66;
+	fill: #FFFF66;
+}
+.GEOGRAPHY {
+	background: #99FF66;
+	fill: #99FF66;
+}
+.ORGANISATION {
+	background: #66CCFF;
+	fill:  #66CCFF;
+}
+#legend {
+	position: fixed;
+	top: 95px;
+   right: 70px;
+   z-index:199;
+   padding: 10px;
+   font-family: Georgia,"Times New Roman",Times,serif;
 }

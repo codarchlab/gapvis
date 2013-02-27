@@ -3,11 +3,11 @@
  */
 define(['gv', 'views/BookView'], function(gv, BookView) {
     var state = gv.state,
-        OC_URL_BASE = 'http://opencontext.org/sets/.json?targURI=http%3A%2F%2Fpleiades.stoa.org%2Fplaces%2F[id]&callback=?';
+        OC_URL_BASE = 'http://opencontext.org/sets/.json?targURI=http%3A%2F%2Fpleiades.stoa.org%2Fentities%2F[id]&callback=?';
     
-    // View: OpenContextThumbView (photos for the place detail page)
+    // View: OpenContextThumbView (photos for the entity detail page)
     return BookView.extend({
-        className: 'place-flickr-view panel fill',
+        className: 'entity-flickr-view panel fill',
     
         initialize: function() {
             this.template = '<div><h4>Open Context Items</h4><div class="photos"></div></div>';
@@ -16,20 +16,20 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         
         render: function() {
             var view = this,
-                placeId = state.get('placeid');
+                entityId = state.get('entityid');
                 
             // render main template
             view.$el.html(view.template);
                 
-            // die if no place
-            if (!placeId) return;
+            // die if no entity
+            if (!entityId) return;
             
             // add loading spinner
             view.$el.addClass('loading');
              
-            // get Flickr data for this place
+            // get Flickr data for this entity
             $.ajax({
-                url: OC_URL_BASE.replace('[id]', placeId),
+                url: OC_URL_BASE.replace('[id]', entityId),
                 dataType: 'jsonp',
                 success: function(data) {
                     view.$el.removeClass('loading');

@@ -38,7 +38,7 @@ define(['gv', 'views/ChangeFormView'], function(gv, ChangeFormView) {
                 view.form = new ChangeFormView({ 
                     model: view.model,
                     token: view.token,
-                    placeId: view.placeId
+                    entityId: view.entityId
                 });
             }
             view.form.open();

@@ -10,7 +10,7 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
         type: 'page',
         
         defaults: {
-            places: []
+            entities: []
         }, 
         
         initialize: function() {

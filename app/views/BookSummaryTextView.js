@@ -15,7 +15,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 book = view.model, 
                 context = _.extend({}, book.toJSON(), {
                     pageCount: book.pages.length,
-                    topPlaces: book.places.toJSON().slice(0,4)
+                    topEntities: book.entities.toJSON().slice(0,4)
                 });
             // fill in template
             view.renderTemplate(context);
@@ -24,15 +24,15 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         // UI Event Handlers - update state
         
         events: {
-            'click span.place':             'uiPlaceClick',
+            'click span.entity':             'uiEntityClick',
             'click button.goto-reading':    'uiGoToReading'
         },
         
-        uiPlaceClick: function(e) {
-            var placeId = $(e.target).attr('data-place-id');
-            if (placeId) {
-                state.set('placeid', placeId);
-                state.set({ 'view': 'place-view' });
+        uiEntityClick: function(e) {
+            var entityId = $(e.target).attr('data-entity-id');
+            if (entityId) {
+                state.set('entityid', entityId);
+                state.set({ 'view': 'entity-view' });
             }
         },
         

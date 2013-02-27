@@ -17,7 +17,7 @@
                 gv.BookTitleView,
                 gv.BookSummaryTextView,
                 gv.BookSummaryMapView,
-                gv.PlaceFrequencyBarsView
+                gv.EntityFrequencyBarsView
             ];
             // super initialization kicks off model fetch
             gv.BookView.prototype.initialize.call(this);

@@ -23,7 +23,7 @@ define(['gv', 'views/BookView', 'models/Flag'], function(gv, BookView, Flag) {
         open: function() {
             var view = this,
                 opts = view.options,
-                placeId = opts.placeId,
+                entityId = opts.entityId,
                 token = opts.token,
                 pageId = state.get('pageid');
             view.ready(function() {
@@ -32,17 +32,17 @@ define(['gv', 'views/BookView', 'models/Flag'], function(gv, BookView, Flag) {
                 // set text to match state
                 view.$('#ctf-book-title')
                     .html(bookName);
-                view.$('#ctf-place-name')
+                view.$('#ctf-entity-name')
                     .html(token);
                 // show page if appropriate
-                if (!view.options.placeOnly) {
+                if (!view.options.entityOnly) {
                     view.$('#ctf-page-id')
                         .html(pageId);
                 } else view.$('span.pagenum').hide();
                 // create model
                 view.note = new Flag({
                     bookid: view.model.id,
-                    placeid: placeId,
+                    entityid: entityId,
                     pageid: pageId,
                     token: token
                 });

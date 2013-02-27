@@ -67,26 +67,26 @@ define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'],
         // UI events
         
         events: {
-            'mouseover span.place':  'uiShowChangeLink',
-            'mouseleave span.place': 'uiHideChangeLink'
+            'mouseover span.entity':  'uiShowChangeLink',
+            'mouseleave span.entity': 'uiHideChangeLink'
         },
         
         uiShowChangeLink: function(e) {
             if (!gv.settings.disableChangeLink) {
-                var $placeSpan = $(e.target),
-                    offset = $placeSpan.offset(),
+                var $entitySpan = $(e.target),
+                    offset = $entitySpan.offset(),
                     changeLink = this.changeLink;
-                // set the place and token to edit
-                changeLink.placeId = $placeSpan.attr('data-place-id');
-                changeLink.token = $placeSpan.text();
+                // set the entity and token to edit
+                changeLink.entityId = $entitySpan.attr('data-entity-id');
+                changeLink.token = $entitySpan.text();
                 // clear existing timer, if any
                 changeLink.clearTimer();
                 // show the link
                 changeLink.open(
                     offset.top, 
                     offset.left, 
-                    $placeSpan.width(), 
-                    $placeSpan.height()
+                    $entitySpan.width(), 
+                    $entitySpan.height()
                 );
             }
         },
