@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2011, Nick Rabinowitz / Google Ancient Entities Project
+ * Copyright (c) 2011, Nick Rabinowitz / Google Ancient Places Project
  * Licensed under the BSD License (see LICENSE.txt)
  */
 
