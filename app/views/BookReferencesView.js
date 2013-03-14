@@ -64,7 +64,7 @@ define(['gv', 'views/BookView', 'models/Collection',], function(gv, BookView, Co
                 refs.forEach(function(book) {
                     view.$el.append(template(book.toJSON()));
                 });			
-            else view.$el.append('<p>No other book references were found.</p>');
+            else view.$el.append('<p>No external URIs were found.</p>');
         }
     });
     

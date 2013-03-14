@@ -5,9 +5,9 @@ define(function() {
 
     // removed in production by uglify
     if (DEBUG) {
-        API_ROOT = '/hellespont-api';
+        API_ROOT = 'http://crazyhorse.archaeologie.uni-koeln.de:8080/hellespont-api';
         REPORT_URL = '/api/flags/';
-        API_DATA_TYPE = 'json';
+        API_DATA_TYPE = 'jsonp';
     }
     
     // map styles

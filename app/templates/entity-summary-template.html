@@ -8,6 +8,6 @@
 <ul>
     <li><a href="<%= uri %>" target="_blank">Entity page on Arachne</a></li>
     </li>
-	<li><a href="http://virginiaplain06.klassarchaeologie.uni-koeln.de:8080/gazetteer/app/#/search?q={%22bool%22:{%22must%22:[{%22nested%22:{%22path%22:%22ids%22,%22query%22:{%22bool%22:{%22must%22:[{%22match%22:{%22ids.value%22:{%22query%22:%22<%= ortsid %>%22,%22operator%22:%22and%22}}},{%22match%22:{%22ids.context%22:%22arachne-place-id%22}}]}}}}]}}&type=extended" target="_blank">Search for connected place in iDAI.gazetteer</a>
+	<li><a href="http://virginiaplain06.klassarchaeologie.uni-koeln.de:8080/gazetteer/app/#/search?q={%22bool%22:{%22must%22:[{%22nested%22:{%22path%22:%22ids%22,%22query%22:{%22bool%22:{%22must%22:[{%22match%22:{%22ids.value%22:{%22query%22:%22<%= ortsid %>%22,%22operator%22:%22and%22}}},{%22match%22:{%22ids.context%22:%22arachne-place%22}}]}}}}]}}&type=extended" target="_blank">Search for connected place in iDAI.gazetteer</a>
 	</li>
 </ul>

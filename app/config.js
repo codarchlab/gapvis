@@ -68,6 +68,7 @@ define({
                     slots: {
                         'this': [
                             'views/EntitySummaryView',
+							'views/BookEntityArachnePicturesView',
                             'views/BookReferencesView',
                             'views/RelatedEntitiesView'
                         ]
