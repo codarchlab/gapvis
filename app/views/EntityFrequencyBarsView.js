@@ -76,6 +76,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var svg = d3.select($container[0])
               .append('svg:svg')
                 .attr('height', (bh + spacing) * entities.length + (singleEntity ? 0 : 10))
+				.attr('width', '100%')
                 // delegated handler: click
                 .on('click', function() {
                     var target = d3.event.target,
@@ -102,7 +103,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 // delegated handler: mouseover
                 .on('mouseover', function() {
                     var $target = $(d3.event.target);
-                    if ($target.is('rect')&& !($target.is('.PERSON')||$target.is('.PLACE')||$target.is('.GEOGRAPHY')||$target.is('.ORGANISATION'))) {
+                    if ($target.attr('class')=='changecolor') {
                         d3.select(d3.event.target)
                             .style('fill', hicolor)
                     }
@@ -110,7 +111,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 // delegated handler: mouseout
                 .on('mouseout', function() {
                     var $target = $(d3.event.target);
-                    if ($target.is('rect') && !$target.is('.selected')&& !($target.is('.PERSON')||$target.is('.PLACE')||$target.is('.GEOGRAPHY')||$target.is('.ORGANISATION'))) {
+                    if ($target.attr('class')=='changecolor' && !$target.is('.selected')) {
                         d3.select(d3.event.target)
                             .style('fill', color)
                     }
@@ -190,6 +191,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                             .attr('width', w/buckets)
                             .attr('height', height)
                             .style('fill', color)
+							.attr('class', 'changecolor')
                             .style('cursor', 'pointer');
                     }
                 });
