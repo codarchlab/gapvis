@@ -28,6 +28,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             view.renderTemplate();
             view.renderPageView();
             view.renderEntityHighlight();
+			view.delegateEvents();
             return view;
         },
         
