@@ -11,7 +11,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         template: '#bars-header-template',
         
         settings: {
-            buckets: 50,
+            //buckets: 30,
             color: 'steelblue',
             hicolor: 'orange'
         },
@@ -43,15 +43,15 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 book = view.model,
                 entities = singleEntity ? [view.options.entity] : book.entities.models,
                 settings = view.settings,
-                buckets = settings.buckets,
+                buckets = settings.buckets ? settings.buckets : book.pages.length,
                 color = settings.color,
                 hicolor = settings.hicolor,
                 frequency = function(d) { return d.get('frequency') },
                 max = d3.max(entities, frequency),
-                bh = 12,
+                bh = 15,
                 w = 250,
                 lw = singleEntity ? 0 : 200,
-                spacing = 3,
+                spacing = 5,
                 x = d3.scale.linear()
                     .domain([0, max])
                     .range([0, w]),
@@ -136,6 +136,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                                 idx: i
                             }
                         });
+						
                     pages.each(function(p, pi) {
                         var pentities = p.get('entities'),
                             pidx = sidx(pi);
@@ -170,19 +171,13 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 .style('stroke', '#999')
                 .style('stroke-width', .5);
 				
-			  // test!
-            spark.append('svg:rect')
-                .attr('y', 0)
-                .attr('x', 0)
-                .attr('width', lw)
-                .attr('height', 12)
-				.attr('class', function(d) { return d.get('type') });
-                
-            // bars			
+			
+            // bars	
+			
             spark.selectAll('rect')
                 .data(function(d) { return d.get('sparkData') })
               .enter().append('svg:rect')
-                .each(function(d, i) {
+                .each(function(d, i) {					
                     if (d.count) {
                         var height = Math.max(2, sy(d.count))
                         d3.select(this)
@@ -194,22 +189,27 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 							.attr('class', 'changecolor')
                             .style('cursor', 'pointer');
                     }
-                });
-				
-				
+                });			
             
             // leave out labels for single entity
             if (!singleEntity) {
+				// colourful background for title	
+				spark.append('svg:rect')
+					.attr('y', 0)
+					.attr('x', 0)
+					.attr('width', lw)
+					.attr('height', bh)
+					.attr('class', function(d) { return d.get('type') });
+				
                 // entity title
                 spark.append('svg:text')
                     .attr('class', 'title')
                     .style('fill', 'black')
-					.style('background', 'magenta')
                     .attr('x', lw - 8)
                     .attr('y', 0)
                     .attr("dx", 3)
                     .attr("dy", "1em")
-                    .text(function(d) { var returnstring = (d.get('title').length > 38) ?  d.get('title').substr(0,35)+'...' :  d.get('title'); return returnstring });
+                    .text(function(d) { var returnstring = (d.get('title').length > 32) ?  d.get('title').substr(0,29)+'...' :  d.get('title'); return returnstring });
                 
                 // frequency label
                 svg.selectAll('text.freq')
@@ -217,7 +217,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                   .enter().append('svg:text')
                     .attr('class', 'freq')
                     .style('fill', 'black')
-                    .style('font-size', '10px')
+                    .style('font-size', '12px')
                     .attr('x', lw + w)
                     .attr('y', y)
                     .attr("dx", 3)
@@ -242,9 +242,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var pages = this.model.pages,
                 settings = this.settings,
                 pageId = state.get('pageid'),
+				maxRange = settings.buckets ? settings.buckets : pages.length,
                 sidx = d3.scale.quantize()
                     .domain([0, pages.length])
-                    .range(d3.range(0, settings.buckets));
+                    .range(d3.range(0, maxRange));
                     
             // clear existing highlights
             d3.select(this.el)
@@ -255,7 +256,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // let's assume we're in single-page view 
             if (pageId) {
                 var i = pages.indexOf(pages.get(pageId));
-                d3.select($('rect:eq(' + (sidx(i)+1) + ')', this.el)[0])
+                d3.select($('rect:eq(' + (sidx(i)) + ')', this.el)[0])
                     .attr('class', 'selected')
                     .style('fill', settings.hicolor);
             }
