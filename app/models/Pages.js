@@ -10,7 +10,8 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
         type: 'page',
         
         defaults: {
-            entities: []
+            entities: [],
+			trees: []
         }, 
         
         initialize: function() {
@@ -21,6 +22,36 @@ define(['gv', 'models/Model', 'models/Collection'], function(gv, Model, Collecti
         
         isFullyLoaded: function() {
             return !!this.get('text');
+        },
+		containsTree: function(idx){
+			var trees = this.get('trees');  
+			var returnvalue = false;
+                    if (trees.length) {
+						 trees.forEach(function(tree) {						
+                            if ((tree/1)==(idx/1)){							
+								returnvalue = tree;
+								}
+                        });
+					}					
+                //tree = this.get('trees').at(idx);
+            return returnvalue;
+		},
+		 // next/prev ids
+        nextPrevId: function(treeId, prev) {
+           
+				idx = (treeId)/1 + (prev ? -1 : 1) ;
+				
+				return this.containsTree(idx);
+        },
+        
+        // next tree id
+        nextId: function(treeId) {
+            return this.nextPrevId(treeId);
+        },
+        
+        // previous tree id
+        prevId: function(treeId) {
+            return this.nextPrevId(treeId, true);
         }
     });
     

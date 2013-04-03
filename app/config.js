@@ -44,13 +44,40 @@ define({
                     slots: {
                         '.top-slot': 'views/PagesView',
                         '.bottom-slot': 'views/PageControlView'
-                    }
+                    }					
                 },
                 '.right-panel': {
                     layout: '#layout-full-top',
                     slots: {
                         '.top-slot': 'views/TimeMapView',
                         '.bottom-slot': 'views/FrequencyLegendView'
+                    }
+                }
+            }
+        },
+		 'tree-view': {
+            layout:  '#layout-book-2panel',
+            className: 'tree-view',
+            router: [
+                
+                'book/:bookid/read/:pageid/tree',
+                'book/:bookid/read/:pageid/tree/:treeid'
+            ],
+            slots: {
+                '.navigation-view': 'views/NavigationView',
+                '.book-title-view': 'views/BookTitleView',
+                '.left-panel': {
+                    layout: '#layout-full-top',
+                    slots: {
+                        '.top-slot': 'views/SentenceView',
+                        '.bottom-slot': 'views/PageControlView'
+                    }					
+                },
+                '.right-panel': {
+                    layout: '#layout-full-top',
+                    slots: {
+                        '.top-slot': 'views/TreeView',
+                        '.bottom-slot': 'views/TreeControlView'
                     }
                 }
             }

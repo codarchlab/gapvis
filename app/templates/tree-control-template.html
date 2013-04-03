@@ -1,0 +1,12 @@
+<div class="nextprev">
+    <span class="prev control">&lt;&lt; previous</span>
+    <select class="tree-id" maxlength="5"><% _.each(trees, function(tree) { 
+	%><option value="<%=tree%>"><%=tree%></option><%
+	}); %></select>
+    <span class="next control">next &gt;&gt;</span>
+</div>
+<div class="imagetoggle">
+    Show:
+    <span class="showtext control">1</span> |
+    <span class="showimg control">2</span>
+</div>

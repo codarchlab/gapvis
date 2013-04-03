@@ -29,11 +29,13 @@ define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'],
                 book = view.model,
                 pages = book.pages,
                 pageId = state.get('pageid'),
-                oldPage;
+                oldPage;				
                 
             // get the relevant page
             var page = pageId && pages.get(pageId) || 
-                pages.first();
+                pages.first();				
+			
+			
             // another page is open; close it
             if (view.pageView) {
                 view.pageView.close();

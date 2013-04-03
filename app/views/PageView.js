@@ -24,14 +24,15 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
         },
         
         render: function() {
-            var view = this;
+            var view = this;			
             view.renderTemplate();
             view.renderPageView();
             view.renderEntityHighlight();
+		//	view.renderConnectedTrees();
 			view.delegateEvents();
+			 
             return view;
         },
-        
         renderPageView: function() {
             var view = this,
                 pageView = state.get('pageview');
@@ -47,6 +48,20 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
                 $(this).toggleClass('hi', $(this).attr('data-entity-id') == entityId);
             });
         },
+		
+		renderConnectedTrees: function() {
+			 var view = this,
+			 page = view.model;
+			
+				 var trees = page.get('trees');                    
+                    if (trees.length) {
+                         view.$('.trees').append('<h4>Linguistic Trees for this Page:</h4>');
+                       trees.forEach(function(tree) {
+                            view.$('.trees').append('<p><span class="connected-tree" tree-id="'+tree+'">Linguistic Tree for Sentence #' +
+                    tree+'</span></p>')
+                        });
+					}
+		},
         
         open: function(width, fromRight) {
             this.$el.width(width - 24); // deal with padding
@@ -60,13 +75,21 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
         // UI Event Handlers - update state
         
         events: {
-            'click .entity':     'uiEntityClick'
+            'click .entity':     'uiEntityClick',
+			'click .connected-tree': 'uiTreeClick'
         },
         
         uiEntityClick: function(e) {
             var entityId = $(e.target).attr('data-entity-id');
             if (entityId) {
                 state.set('entityid', entityId);
+            }
+        },
+		uiTreeClick: function(e) {
+            var treeId = $(e.target).attr('tree-id');			
+            if (treeId) {
+                state.set('treeid', treeId);
+				state.set({ 'view': 'tree-view' });
             }
         }
         

@@ -12,7 +12,16 @@ define(['gv'], function(gv) {
             context = context || view.model.toJSON();
             $(view.el).html(template(context));
         },
-        
+        highlight: function(e){
+		var view = this;
+			if (e && $(e.target).attr('id')){				
+				className = $(e.target).attr('id').replace(/\D/g, "");				
+				$('text').attr('style','');
+				$('.highlighted').removeClass('highlighted');
+				$('#sentence-word'+className).addClass('highlighted');
+				$('text.word'+className).attr('style','font-weight:lighter;stroke:yellow;');
+			}
+		},
         ready: function(callback) {
             var view = this,
                 state = gv.state,

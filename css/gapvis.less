@@ -116,6 +116,9 @@ footer {
     .full-height {
         height: 100%;
     }
+	 .almost-full-height {
+        height: 80%;
+    }
     
     .fill {
         position: absolute;
@@ -292,7 +295,7 @@ footer {
 // navigation bar for book layouts
 .navigation-view {
     float: right;
-    width: 475px;
+    width: 575px;
     margin-left: 20px;
     text-align: right;
     
@@ -321,7 +324,7 @@ footer {
 .nextprev{
     float: right;
     
-    .page-id {
+    .page-id, .tree-id {
         width: 3.5em;
         text-align: center;
         font-family: Georgia, Garamond, serif;
@@ -560,4 +563,68 @@ div.timeline-event-label {
    z-index:199;
    padding: 10px;
    font-family: Georgia,"Times New Roman",Times,serif;
+}
+.connected-trees-view {
+	height: 20%;
+    margin-bottom: 10px;
+    overflow: auto;
+    position: relative;
+    width: 100%;
+}
+
+.tree-view {
+	div {
+	overflow: hidden;
+	}
+ g.node {
+            font-family: Verdana, Helvetica;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        circle.node-dot {
+            fill: #ffa500;
+            stroke: red;
+            stroke-width: 1px;
+        }
+
+        path.link {
+            fill: none;
+            stroke: gray;
+        }
+		#tree-container {
+			margin:10px;
+			padding:0px;
+			left:10px;
+			top:10px;
+			
+		}
+		svg, #sentence-container {
+			
+		}
+		body {
+			margin:0px;
+			padding:0px;
+		}
+		.highlighted {
+		background-color:yellow;
+		stroke:yellow;
+		}
+		
+		text {
+		font-weight:lighter;
+		}
+		.afun {
+		font-weight:bold;
+		fill:steelblue;
+		}
+		
+}
+#sentence-container {
+	 font-family: Georgia, Garamond, serif;
+	 padding: 1.5em 12px;
+	 font-size: 1.2em;
+}
+
+.connected-tree{
+cursor:pointer;
 }
