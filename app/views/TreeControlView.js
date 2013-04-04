@@ -13,7 +13,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var view = this;
             // listen for state changes
             view.bindState('change:treeid', view.renderNextPrev, view);
-            view.bindState('change:treeview', view.renderPageView, view);
+            view.bindState('change:treeview', view.renderTreeView, view);
 			view.bindState('change:pageid', view.render, view);
         },
         
@@ -26,7 +26,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // fill in template
             view.renderTemplate(page.toJSON());
             view.renderNextPrev();
-          //  view.renderPageView();
+            view.renderTreeView();
         },
         
         renderNextPrev: function() {
@@ -42,25 +42,38 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             view.$('.prev').toggleClass('on', !!prev);
             view.$('.next').toggleClass('on', !!next);
             view.$('.tree-id').val(treeId);
+        },        
+		
+		renderTreeView: function() {
+            var view = this,
+                treeView = state.get('treeview');
+				
+            // very ugly!            
+			if (treeView=='syntactical'){
+				d3.select($('#tree_a-container').find('.viewport')[0]).attr('class','viewport on');
+				d3.select($('#tree_a-container').find('.svgCanvas')[0]).attr('class','svgCanvas on');
+				d3.select($('#tree_t-container').find('.viewport')[0]).attr('class','viewport');
+				d3.select($('#tree_t-container').find('.svgCanvas')[0]).attr('class','svgCanvas');
+			}
+			if (treeView=='tectogrammatical'){
+				d3.select($('#tree_a-container').find('.viewport')[0]).attr('class','viewport');
+				d3.select($('#tree_a-container').find('.svgCanvas')[0]).attr('class','svgCanvas');
+				d3.select($('#tree_t-container').find('.viewport')[0]).attr('class','viewport on');
+				d3.select($('#tree_t-container').find('.svgCanvas')[0]).attr('class','svgCanvas on');
+			}
+			$('#tree_a-container').toggle(treeView=='syntactical');
+            $('#tree_t-container').toggle(treeView=='tectogrammatical');
+			view.$('.showtecto').toggleClass ('on', !(treeView=='tectogrammatical'));
+			view.$('.showsyntac').toggleClass ('on', !(treeView=='syntactical'));
         },
         
-        /*
-		TODO: implement the two different kinds of linguistic trees
-		renderPageView: function() {
-            var view = this,
-                pageView = state.get('pageview');
-            // render
-            view.$('.showimg').toggleClass('on', pageView == 'text');
-            view.$('.showtext').toggleClass('on', pageView == 'image');
-        },
-        */
         // UI Event Handlers - update state
         
         events: {
             'click .next.on':       'uiNext',
             'click .prev.on':       'uiPrev',
-            'click .showimg.on':    'uiShowImage',
-            'click .showtext.on':   'uiShowText',
+            'click .showtecto.on':    'uiShowTecto',
+            'click .showsyntac.on':   'uiShowSyntac',
             'change .tree-id':      'uiJumpToPage'
         },
         
@@ -72,12 +85,12 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             state.set({ treeid: this.prev });
         },
         
-        uiShowImage: function() {
-            state.set({ treeview:'2' })
+        uiShowTecto: function() {
+            state.set({ treeview:'tectogrammatical' });
         },
         
-        uiShowText: function() {
-            state.set({ treeview:'1' })
+        uiShowSyntac: function() {
+            state.set({ treeview:'syntactical' });
         },
         
         uiJumpToPage: function(e) {

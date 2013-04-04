@@ -38,6 +38,7 @@ require(['gv', 'config', 'models/Books', 'models/State', 'views/AppView', 'views
     gv.addParameter('entityid', { deserialize: String });
 	gv.addParameter('treeid', { deserialize: String });
     gv.addParameter('pageview');
+	gv.addParameter('treeview');
     gv.addParameter('barsort');
     gv.addParameter('mapzoom', { deserialize: parseInt });
     gv.addParameter('mapcenter', { 

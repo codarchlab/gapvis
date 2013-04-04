@@ -55,7 +55,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 				
                 success: function(data) {
                     view.$el.empty().removeClass('loading');
-                     view.buildTree("#tree-container", data);
+                     view.buildTree("tree-container", data);
 					 
                        
                 }
@@ -85,21 +85,43 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 				}
 			}
 		},
+		addSentence: function (sentence){
+			// Write sentence in sentence container
+			var words = sentence.split(" ");
+			for (var i= 0; i<words.length; i++){
+				newspan = document.createElement('span');
+				$(newspan).append(document.createTextNode(words[i]));
+				$(newspan).attr('id','sentence-word'+(i+1));
+				if (i != 0 && words[i]!= ',' && words[i] != '.')
+					$('#sentence-container').append(document.createTextNode(" "));
+				$('#sentence-container').append(newspan);				
+				$(newspan).addClass("word"+(i+1));
+				$(newspan).addClass("sentence-word");
+			}
+		},
 		buildTree: function (containerName, treeData, customOptions)
 		{
-			 var view = this;
-			// build the options object
-			var options = $.extend({
+			 var view = this,
+			 treeView = state.get('treeview');
+			//Fill sentence container
+			view.addSentence(treeData.sentence);
+			//Build a_tree
+			view.createSVG("tree_a-container", treeData.treeNodes_a, customOptions, !(treeView=='syntactical'));
+			//Build t_tree
+			view.createSVG("tree_t-container", treeData.treeNodes_t, customOptions, !(treeView=='tectogrammatical'));
+
+		},
+		createSVG: function (containerName, treeData, customOptions, hidden){
+			var view = this,
+			options = $.extend({
 				nodeRadius: 3, fontSize: 8
 			}, customOptions);
-
-			
 			
 			// Calculate total nodes, max label length
 			var totalNodes = 0;
 			var maxLabelLength = 0;
 			var maxWidth = 0;
-			view.visit(treeData.treeNodes, function(d)
+			view.visit(treeData, function(d)
 			{
 				totalNodes++;
 				maxLabelLength = Math.max(d.name.length, maxLabelLength);
@@ -122,28 +144,26 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					return (!d.contents || d.contents.length === 0) ? null : d.contents;
 				});
 
-			var nodes = tree.nodes(treeData.treeNodes);
+			var nodes = tree.nodes(treeData);
 			var links = tree.links(nodes);		
 			
-			 var $container = $('<div id ="tree-container"></div>').appendTo(view.$el);
-            // Write sentence in sentence container
-			var words = treeData.sentence.split(" ");
-			for (var i= 0; i<words.length; i++){
-				newspan = document.createElement('span');
-				$(newspan).append(document.createTextNode(words[i]));
-				$(newspan).attr('id','sentence-word'+(i+1));
-				if (i != 0 && words[i]!= ',' && words[i] != '.')
-					$('#sentence-container').append(document.createTextNode(" "));
-				$('#sentence-container').append(newspan);				
-				$(newspan).addClass("word"+(i+1));
-				$(newspan).addClass("sentence-word");
+			 var $container = $('<div id ="'+containerName+'"></div>').appendTo(view.$el).toggle(!hidden),
+			 canvasClass,
+			 viewportClass;
+			
+			if (hidden){
+				canvasClass = "svgCanvas";
+				viewportClass = "container viewport";
+			}
+			else {
+				canvasClass = "svgCanvas on";
+				viewportClass = "container viewport on";
 			}
                
 			var layoutRoot = d3.select( $container[0])
-				.append("svg:svg").attr("width", size.width).attr("height", size.height).attr('id','svgCanvas').attr("onmouseup" , "handleMouseUp(evt)").attr("onmousedown" , "handleMouseDown(evt)").attr(	"onmousemove" , "handleMouseMove(evt)")
+				.append("svg:svg").attr("width", size.width).attr("height", size.height).attr('class', canvasClass).attr("onmouseup" , "handleMouseUp(evt)").attr("onmousedown" , "handleMouseDown(evt)").attr(	"onmousemove" , "handleMouseMove(evt)")
 				.append("svg:g")
-				.attr("class", "container")
-				.attr('id', 'viewport')
+				.attr('class', viewportClass)
 				.attr("transform", "translate(0,10)");
 
 
@@ -151,7 +171,6 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 			var link = d3.svg.diagonal()
 				.projection(function(d)
 				{
-					//return [d.y, d.x];
 					return [d.x, d.y];
 				});
 
@@ -187,7 +206,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					return "node"+d.order;
 				})
 				.attr("r", options.nodeRadius);
-
+				
+			// word/lemma
 			nodeGroup.append("svg:text")
 				.attr("text-anchor", function(d)
 				{
@@ -218,6 +238,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					return d.name;
 				});
 				
+				//afun/functor
 				 nodeGroup.append("svg:text")
 				.attr("text-anchor", function(d)
 				{
@@ -234,22 +255,95 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 				.attr("font-size", options.fontSize)
 				.attr("class", "afun")
 				.text(function(d)
+				{	 
+					if (d.afun)
+						return d.afun;
+					else if (d.functor)
+						return d.functor;
+					else
+						return "";
+				});			
+				
+				//sempos
+				 nodeGroup.append("svg:text")
+				.attr("text-anchor", function(d)
 				{
-					return d.afun;
+					return d.children ? "end" : "start";
+				})
+				.attr("dx", function(d)
+				{            
+					return 0;
+				})
+				.attr("dy", function(d)
+				{				
+					return 17;
+				})
+				.attr("font-size", options.fontSize)
+				.attr("class", "afun")
+				.text(function(d)
+				{	 
+					if (d.sempos)
+						return d.sempos;
+					else
+						return "";
 				});			
 
-		}   
+		   
+		//number
+				 nodeGroup.append("svg:text")
+				.attr("text-anchor", function(d)
+				{
+					return d.children ? "end" : "start";
+				})
+				.attr("dx", function(d)
+				{            
+					return 0;
+				})
+				.attr("dy", function(d)
+				{				
+					return 24;
+				})
+				.attr("font-size", options.fontSize)
+				.attr("class", "afun")
+				.text(function(d)
+				{	 
+					if (d.number)
+						return d.number;
+					else
+						return "";
+				});	
+				
+			//gender
+				 nodeGroup.append("svg:text")
+				.attr("text-anchor", function(d)
+				{
+					return d.children ? "end" : "start";
+				})
+				.attr("dx", function(d)
+				{            
+					return 0;
+				})
+				.attr("dy", function(d)
+				{				
+					return 31;
+				})
+				.attr("font-size", options.fontSize)
+				.attr("class", "afun")
+				.text(function(d)
+				{	 
+					if (d.gender)
+						return d.gender;
+					else
+						return "";
+				});			
+				
+
+		}   				
+
+		   
   
         
-    });
-    
-    // no d3 option
-    /*if (window.nod3) {
-        EntityFrequencyBarsView = EntityFrequencyBarsView.extend({
-            render: $.noop,
-            updateHighlight: $.noop
-        });
-    }*/
+    });  
     
     return TreeView;
     
