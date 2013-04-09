@@ -35,6 +35,9 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					state.set({ treeid: trees[0] });
 				}
 			}
+			else {
+				state.set({ treeid: trees[0] });
+			}
 		},
         render: function() {
             var view = this,

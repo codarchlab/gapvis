@@ -55,6 +55,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         uiGoToView: function(evt) {
             // get view from id			
 			if ($(evt.target).attr('title')!= 'Legend'){
+				if(navigator.userAgent.toLowerCase().indexOf('webkit') >= 0)
+					window.removeEventListener('mousewheel', handleMouseWheel, false); // Chrome/Safari
+				else
+					window.removeEventListener('DOMMouseScroll', handleMouseWheel, false); // Others
 				var viewKey = $(evt.target)
 					.closest('[data-view-id]')
 					.attr('data-view-id');
