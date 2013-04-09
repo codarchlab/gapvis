@@ -59,12 +59,12 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 success: function(data) {
                     view.$el.empty().removeClass('loading');
                      view.buildTree("tree-container", data);
-					 
+					 root = document.getElementById('svgCanvas');
+					setupHandlers(root);
                        
                 }
             });
-			root = document.getElementById('svgCanvas');
-			setupHandlers(root);
+			
              
             return this;
         },
