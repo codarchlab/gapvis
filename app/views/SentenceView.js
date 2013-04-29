@@ -23,9 +23,9 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             return view;
         },      
 
-        events: {            
+       /* events: {            
 			'mouseover .sentence-word':     'highlight'
-        },
+        },*/
         open: function(width, fromRight) {
             this.$el.width(width - 24); // deal with padding
             slide(this.$el, true, fromRight ? 'right' : 'left');

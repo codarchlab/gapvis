@@ -9,8 +9,8 @@
 @discreet-text: #999;
 
 // top view dimensions
-@header-height: 30px;
-@footer-height: 35px;
+@header-height: 40px;
+@footer-height: 30px;
 
 @view-padding-top: 20px;
 @view-padding-bottom: 25px;
@@ -29,25 +29,27 @@ html, body {
     overflow: hidden;
 }
 h1, h2, h3, h4 {
-    color: #555;
+    color: @daiHeadlineBlack;
 }
-h1, h4 {
+h4 {
     font-style: italic;
 }
 p {
-    font-family: @serifFontFamily;
+    font-family: @sansFontFamily;
 }
 
 // ---------------------------------------------------
 // Header and Footer
 // ---------------------------------------------------
 header {
-    padding: 10px @view-margin-right 0 @view-margin-left;
+   // padding: 10px @view-margin-right 0 @view-margin-left;
     height: @header-height;
 
-    h1 {
+    h3 {
         margin: 0;
         float: left;
+		font-style: italic;
+		color:white;
         
         span.beta {
             font-style: normal;
@@ -57,15 +59,18 @@ header {
         }
         
         a:link, a:visited {
-            color: @linkColor;
+            //color: @daiHeadlineBlack;
             text-decoration: none;
         }
     }
     
     nav {
-        margin: .4em 2em;
+        margin: .8em 2em;
         float: left;
         font-weight: bold;
+		a:link, a:visited {
+            color: white;            
+        }
     }
 }
 
@@ -86,7 +91,7 @@ footer {
 
 .top {
     position: absolute;
-    background: #eee;
+    background: #ffffff;
     top: @view-margin-top;
     // width & height set with JS
     -moz-border-radius: 15px;
@@ -323,11 +328,18 @@ footer {
 // page control buttons
 .nextprev{
     float: right;
+	select{
+	margin:0px;
+	padding:0px;
+	line-height: 20px;
+	height: 20px;
+	}
+	
     
     .page-id, .tree-id {
         width: 3.5em;
         text-align: center;
-        font-family: Georgia, Garamond, serif;
+        //font-family: Georgia, Garamond, serif;
         font-variant: lining-nums;
     }
 }
@@ -365,7 +377,7 @@ footer {
     display: none;
     overflow: auto;
     font-size: 1.2em;
-    font-family: @serifFontFamily;
+    font-family: @sansFontFamily;
 
     .img {
         display: none;
@@ -379,7 +391,7 @@ footer {
 
 // page summary view
 .entity-summary {
-    font-family: @serifFontFamily;
+    font-family: @sansFontFamily;
     
     p {
         margin: 0 0 .5em 0;
@@ -499,10 +511,10 @@ div.timeline-event-label {
     width: 280px;
     
     h3 {
-        margin: 0 0 1em 0;
+        margin: 0 0 .1em 0;
     }
     p {
-        margin: 0 0 1em 0;
+        margin: 0 0 .5em 0;
     }
     span.zoom {
         font-size: .6em;
@@ -558,11 +570,11 @@ div.timeline-event-label {
 }
 #legend {
 	position: fixed;
-	top: 95px;
-   right: 70px;
+	top: 105px;
+   right: 41px;
    z-index:199;
    padding: 10px;
-   font-family: Georgia,"Times New Roman",Times,serif;
+   font-family: @sansFontFamily;
 }
 .connected-trees-view {
 	height: 20%;
@@ -577,7 +589,7 @@ div.timeline-event-label {
 	overflow: hidden;
 	}
  g.node {
-            font-family: Verdana, Helvetica;
+            font-family: @sansFontFamily;
             font-size: 12px;
             font-weight: bold;
         }
@@ -620,11 +632,15 @@ div.timeline-event-label {
 		
 }
 #sentence-container {
-	 font-family: Georgia, Garamond, serif;
+	 font-family: @sansFontFamily;
 	 padding: 1.5em 12px;
 	 font-size: 1.2em;
 }
 
 .connected-tree{
 cursor:pointer;
+}
+
+.imagetoggle{
+font-style: italic;
 }

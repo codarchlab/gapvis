@@ -13,7 +13,6 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var view = this;
             // listen for state changes
             view.bindState('change:treeid', view.renderNextPrev, view);
-            view.bindState('change:treeview', view.renderTreeView, view);
 			view.bindState('change:pageid', view.render, view);
         },
         
@@ -26,7 +25,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // fill in template
             view.renderTemplate(page.toJSON());
             view.renderNextPrev();
-            view.renderTreeView();
+            //view.renderTreeView();
         },
         
         renderNextPrev: function() {
@@ -72,8 +71,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         events: {
             'click .next.on':       'uiNext',
             'click .prev.on':       'uiPrev',
-            'click .showtecto.on':    'uiShowTecto',
-            'click .showsyntac.on':   'uiShowSyntac',
+         //   'click .showtecto.on':    'uiShowTecto',
+         //   'click .showsyntac.on':   'uiShowSyntac',
             'change .tree-id':      'uiJumpToPage'
         },
         
