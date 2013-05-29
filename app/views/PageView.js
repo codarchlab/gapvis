@@ -76,9 +76,24 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
         
         events: {
             'click .entity':     'uiEntityClick',
-			'click .connected-tree': 'uiTreeClick'
+			'click .connected-tree': 'uiTreeClick',
+			'click .section-heading': 'uiSectionClick',
+			'click .chapter-heading': 'uiChapterClick'
         },
-        
+        uiSectionClick: function(e) {
+			var section = $(e.target).attr('section-id');
+			if (section) {
+				state.set('sectionid', section);
+				$(".highlighted").removeClass('highlighted');
+				$(e.target).addClass('highlighted');
+			}
+		},
+		 uiChapterClick: function(e) {			
+				state.set('sectionid', null);
+				$(".highlighted").removeClass('highlighted');
+				$(e.target).addClass('highlighted');
+			
+		},
         uiEntityClick: function(e) {
             var entityId = $(e.target).attr('data-entity-id');
             if (entityId) {

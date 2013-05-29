@@ -39,6 +39,7 @@ require(['gv', 'config', 'models/Books', 'models/State', 'views/AppView', 'views
 	gv.addParameter('treeid', { deserialize: String });
     gv.addParameter('pageview');
 	gv.addParameter('treeview');
+	gv.addParameter('sectionid');
     gv.addParameter('barsort');
     gv.addParameter('mapzoom', { deserialize: parseInt });
     gv.addParameter('mapcenter', { 
@@ -54,7 +55,8 @@ require(['gv', 'config', 'models/Books', 'models/State', 'views/AppView', 'views
             return value.lat + "," + value.lng;
         }
     });
-    
+
+	
     // kick things off
     $(function() {
         gv.configure(config)

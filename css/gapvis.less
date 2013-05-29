@@ -30,6 +30,7 @@ html, body {
 }
 h1, h2, h3, h4 {
     color: @daiHeadlineBlack;
+	line-height: 20px;
 }
 h4 {
     font-style: italic;
@@ -300,7 +301,7 @@ footer {
 // navigation bar for book layouts
 .navigation-view {
     float: right;
-    width: 575px;
+    //width: 575px;
     margin-left: 20px;
     text-align: right;
     
@@ -312,9 +313,6 @@ footer {
         vertical-align: top;
     }
     
-    button {
-        font-weight: bold;
-    }
 }
 
 // book title view
@@ -643,4 +641,23 @@ cursor:pointer;
 
 .imagetoggle{
 font-style: italic;
+}
+.section-heading {
+	font-size: 0.7em;
+	font-weight: normal;
+	padding: 0px;
+	margin: 0px;
+	cursor:pointer;
+	}
+	
+.chapter-heading {
+	font-weight: normal;
+	padding: 0px;
+	margin-bottom: 10px;
+	cursor:pointer;
+}
+.highlighted {
+	background-color: @daiMenuBlue;
+	padding-right: 5px;
+	color: white;
 }

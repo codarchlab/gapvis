@@ -18,6 +18,12 @@ define(['gv'], function(gv) {
             pageview: 'text',
             barsort: 'ref'
         },
+		    
+		getCtsUrn: function(){
+			return	"urn:cts:greekLit:tlg0003.tlg001.perseus-grc1:"+this.get('bookid')
+			+"."+this.get('pageid')
+			+((this.get('sectionid')!=null&&this.get('sectionid').length>0)?("."+this.get('sectionid')):"")
+		},
         
         // clear all data relating to the current book
         clearBookState: function(silent) {

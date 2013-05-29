@@ -31,6 +31,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 pageId = state.get('pageid') || book.firstId(),
                 prev = view.prev = book.prevId(pageId),
                 next = view.next = book.nextId(pageId);
+				state.set('sectionid', null);
             // render
             view.$('.prev').toggleClass('on', !!prev);
             view.$('.next').toggleClass('on', !!next);
