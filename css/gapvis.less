@@ -23,6 +23,17 @@
 @view-margin-left: 20px;
 
 // ---------------------------------------------------
+// Special Colors
+// ---------------------------------------------------
+
+@pers-color: #FADE96;
+@org-color: #96C3FA;
+@place-color: #ADADAD;
+@geog-color: #ADA568;
+
+
+
+// ---------------------------------------------------
 // Basic elements
 // ---------------------------------------------------
 html, body {
@@ -152,7 +163,7 @@ footer {
 // ---------------------------------------------------
 
 // slide transitions
-.top, .single-page {
+.top, .single-page, #eventlist-div {
     &.sliding {
         .transition(.6s ease-in-out left);
     }
@@ -271,16 +282,16 @@ footer {
 // place frequency bars view
 .freq-bars-view {
 		.PLACE {
-			fill:  	#FFFF99;
+			fill:  	@place-color;
 		}
 		.PERSON {
-			fill: #FFCC99;
+			fill: @pers-color;
 		}
 		.GEOGRAPHY {
-			fill: #99FF99;
+			fill: @geog-color;
 		}
 		.ORGANISATION {
-			fill:  #BFEFFF;
+			fill:  @org-color;
 		}
     text.title {
         text-anchor: end;
@@ -299,7 +310,7 @@ footer {
 }
 
 // navigation bar for book layouts
-.navigation-view {
+.navigation-view, .reading-navigation-view {
     float: right;
     //width: 575px;
     margin-left: 20px;
@@ -344,6 +355,8 @@ footer {
 
 // timemap view
 .timemap-view {
+margin-top: 0px;
+margin-bottom: 0px;
     .timeline-container{
         position: relative;
         height: 35%;
@@ -365,7 +378,14 @@ footer {
         background: #EEEEEE;
     }
 }
-
+.eventlist-view {
+   padding: 1.5em 12px;
+   font-size: 1.2em;
+   font-family: @sansFontFamily;
+}
+.reading-view-left{
+overflow: auto;
+}
 // single page view
 .single-page {
     position: absolute;
@@ -550,21 +570,21 @@ div.timeline-event-label {
 }
 
 .PERSON {
-	background: #FFCC99;
-	fill: #FFCC99;
+	background: @pers-color;
+	fill: @pers-color;
 }
 
 .PLACE {
-	background: #FFFF99;
-	fill: #FFFF99;
+	background: @place-color;
+	fill: @place-color;
 }
 .GEOGRAPHY {
-	background: #99FF99;
-	fill: #99FF99;
+	background: @geog-color;
+	fill: @geog-color;
 }
 .ORGANISATION {
-	background: #BFEFFF;
-	fill:  #BFEFFF;
+	background: @org-color;
+	fill:  @org-color;
 }
 #legend {
 	position: fixed;
@@ -651,7 +671,7 @@ font-style: italic;
 	}
 	
 .chapter-heading {
-	font-weight: normal;
+	//font-weight: normal;
 	padding: 0px;
 	margin-bottom: 10px;
 	cursor:pointer;
@@ -660,4 +680,10 @@ font-style: italic;
 	background-color: @daiMenuBlue;
 	padding-right: 5px;
 	color: white;
+}
+td {
+vertical-align:top;
+}
+#manual, #automatic{
+	width: 50%;
 }

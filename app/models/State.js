@@ -25,6 +25,17 @@ define(['gv'], function(gv) {
 			+((this.get('sectionid')!=null&&this.get('sectionid').length>0)?("."+this.get('sectionid')):"")
 		},
         
+		getCurrentEvents: function(){
+		$.ajax({			
+                url: "http://crazyhorse.archaeologie.uni-koeln.de/ThucDb/e5Event/ctsUrn/"+this.getCtsUrn(),
+                dataType: 'jsonp',
+				
+                success: function(data) {
+                   return(data);
+                       
+                }
+            }); 
+		},
         // clear all data relating to the current book
         clearBookState: function(silent) {
             var s = this,

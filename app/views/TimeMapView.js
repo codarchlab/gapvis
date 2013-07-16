@@ -27,7 +27,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
     
     // View: TimemapView
     return BookView.extend({
-        className: 'timemap-view panel fill',
+        className: 'timemap-view full-height',
         template: '#timemap-template',
         
         initialize: function() {
@@ -50,7 +50,7 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
         
         render: function() {
             var view = this,
-                book = view.model,
+                book = view.model;
                 // create themes by frequency
                 colorScale = d3.scale.quantize()
                     .domain([1, book.entities.first().get('frequency')])
@@ -70,8 +70,9 @@ define(['gv', 'views/BookView', 'views/InfoWindowView'], function(gv, BookView, 
             view.bindState('change:pageid',     view.stopAutoplay, view);
             
             // render template HTML
+			//$('#time-map-div').html("test");
             view.$el.html(view.template);
-            
+			//$('#time-map-div').empty().append(view.$el);
             // custom info window function
             function openEntityWindow() {
                 var item = this,

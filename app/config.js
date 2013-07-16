@@ -49,8 +49,8 @@ define({
                 '.right-panel': {
                     layout: '#layout-full-top',
                     slots: {
-                        '.top-slot': 'views/TimeMapView',
-                        '.bottom-slot': 'views/FrequencyLegendView'
+                        '.top-slot': 'views/ReadingView',
+                        '.bottom-slot': 'views/ReadingNavigationView'
                     }
                 }
             }
