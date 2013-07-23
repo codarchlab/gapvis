@@ -5,4 +5,4 @@ lessc-watch.cmd
 lessc.cmd
 lessc.wsf
 uglifyjs
-styles-gv-*.css
+css/styles-gv-*.css

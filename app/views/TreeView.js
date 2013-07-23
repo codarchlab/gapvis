@@ -7,7 +7,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
     
     // View: BookTitleView (title and metadata)
     TreeView =  BookView.extend({
-        className: 'tree-view panel fill loading',
+        className: 'tree-view-right panel loading',
         template: '#tree-template',
         
         settings: {            

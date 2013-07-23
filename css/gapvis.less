@@ -9,10 +9,10 @@
 @discreet-text: #999;
 
 // top view dimensions
-@header-height: 40px;
+@header-height: 300px;
 @footer-height: 30px;
 
-@view-padding-top: 20px;
+@view-padding-top: 40px;
 @view-padding-bottom: 25px;
 @view-padding-right: 15px;
 @view-padding-left: 15px;
@@ -21,6 +21,7 @@
 @view-margin-bottom: @footer-height + @view-padding-bottom;
 @view-margin-right: 20px;
 @view-margin-left: 20px;
+@general-height: 600px;
 
 // ---------------------------------------------------
 // Special Colors
@@ -37,7 +38,7 @@
 // Basic elements
 // ---------------------------------------------------
 html, body {
-    overflow: hidden;
+    overflow: auto;
 }
 h1, h2, h3, h4 {
     color: @daiHeadlineBlack;
@@ -87,7 +88,7 @@ header {
 }
 
 footer {
-    position: absolute;
+    //position: absolute;
     bottom: 0;
     padding: 10px 20px;
     font-size: .8em;
@@ -102,7 +103,7 @@ footer {
 // ---------------------------------------------------
 
 .top {
-    position: absolute;
+   //position: absolute;
     background: #ffffff;
     top: @view-margin-top;
     // width & height set with JS
@@ -120,9 +121,10 @@ footer {
 }
 
 .layout {
-    position: absolute;
+    //position: absolute;
     top: @view-padding-top;
-    bottom: @view-padding-bottom;
+  height: 800px;
+    //bottom: @view-padding-bottom;
     left: @view-padding-left;
     right: @view-padding-right;
     
@@ -138,7 +140,7 @@ footer {
     }
     
     .fill {
-        position: absolute;
+       // position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
@@ -150,8 +152,8 @@ footer {
 
 .layout-full-top {
     .bottom-slot {
-        position: absolute;
-        bottom: 0;
+        //position: absolute;
+       // bottom: 0;
         width: 100%;
         height: 1.5em;
     }
@@ -189,7 +191,7 @@ footer {
 
 // loading spinner
 .loading {
-    background-image: url(images/blue-loading.gif);
+    background-image: url(../images/blue-loading.gif);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     min-height: 80px;
@@ -266,7 +268,7 @@ footer {
 // index page book list
 .index-overview-template {
     overflow: auto;
-    height: 100%;
+    height: 800px;
 }
 
 // summary page map view
@@ -278,9 +280,12 @@ footer {
         height: 100%;
     }
 }
-
+.summary-map-view{
+height: 455px;
+}
 // place frequency bars view
 .freq-bars-view {
+height: @general-height;
 		.PLACE {
 			fill:  	@place-color;
 		}
@@ -383,15 +388,28 @@ margin-bottom: 0px;
    font-size: 1.2em;
    font-family: @sansFontFamily;
 }
+
+.single-page, .page-view-tree{
+height: @general-height;
+overflow: auto;
+}
+
+.entity-map-view{
+height: 455px;
+}
 .reading-view-left{
+height: @general-height;
 overflow: auto;
 }
 // single page view
+.text {
+ padding: 1.5em 12px;
+}
 .single-page {
-    position: absolute;
+ //   position: absolute;
     top: 0;
-    bottom: 0;
-    padding: 1.5em 12px;
+    //bottom: 0;
+   
     display: none;
     overflow: auto;
     font-size: 1.2em;
@@ -409,6 +427,7 @@ overflow: auto;
 
 // page summary view
 .entity-summary {
+	height: @general-height;
     font-family: @sansFontFamily;
     
     p {
@@ -432,6 +451,7 @@ overflow: auto;
 
 // flickr photos
 .entity-flickr-view {
+margin-top: 15px;
     > div {
         padding: 10px;
     }
@@ -455,10 +475,12 @@ overflow: auto;
 .entity-view-right.layout-full-top .bottom-slot {
     height: 130px;
 }
-
+.bottom-slot{
+margin-top: 15px;
+}
 // message view
 #message-view {
-    position: absolute;
+   // position: absolute;
     top: 0;
     width: 100%;
     text-align: center;
@@ -512,10 +534,10 @@ overflow: auto;
             cursor: pointer;
         }
         &.timeline-play {
-            background-image: url(images/play.png);
+            background-image: url(../images/play.png);
         }
         &.timeline-stop {
-            background-image: url(images/stop.png);
+            background-image: url(../images/stop.png);
         }
     }
 }
@@ -602,7 +624,9 @@ div.timeline-event-label {
     width: 100%;
 }
 
-.tree-view {
+.tree-view-right {
+overflow: hidden;
+	height: @general-height;
 	div {
 	overflow: hidden;
 	}

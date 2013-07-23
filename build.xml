@@ -82,7 +82,7 @@
         <property name="js.concat.target" value="${target.dir}/${js.concat}" />
         <property name="js.rjs.target" value="${build.dir}/rjs_modules.js" />
         
-        <property name="css.concat" value="styles-${app.file.prefix}${build.time}.css" />
+        <property name="css.concat" value="css/styles-${app.file.prefix}${build.time}.css" />
         <property name="css.concat.build" value="${build.dir}/${css.concat}" />
         <property name="css.concat.target" value="${target.dir}/${css.concat}" />
         
@@ -144,7 +144,7 @@
             <fileset dir="." includes="scripts-${app.file.prefix}*.js"/>
         </delete>
         <delete>
-            <fileset dir="." includes="styles-${app.file.prefix}*.css"/>
+            <fileset dir="css" includes="styles-${app.file.prefix}*.css"/>
         </delete>
     </target>
     

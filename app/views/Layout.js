@@ -17,8 +17,8 @@ define(['gv'], function(gv) {
             // fill screen
             if (this.topLevel) {
                 this.$el
-                    .width(this.topViewWidth())
-                    .height(this.topViewHeight());
+                    .width(this.topViewWidth());
+                    //.height(this.topViewHeight());
             }
             
             // fill height as necessary

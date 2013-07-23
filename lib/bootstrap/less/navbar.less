@@ -51,7 +51,7 @@
   padding: ((@navbarHeight - @baseLineHeight) / 2) 20px ((@navbarHeight - @baseLineHeight) / 2);
   margin-left: -20px; // negative indent to left-align the text down the page
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 400;
   color: @navbarBrandColor;
   text-shadow: 0 1px 0 @navbarBackgroundHighlight;
   &:hover,
@@ -455,7 +455,7 @@
   // Navbar search
   .navbar-search {
     .search-query {
-      color: @white;
+      // color: @white;
       background-color: @navbarInverseSearchBackground;
       border-color: @navbarInverseSearchBorder;
       .transition(none);
@@ -480,3 +480,59 @@
   }
 
 }
+
+/*--------- MENU VIEW --------------------- */
+.archaeo-fixed-menu {
+  z-index: 200;
+  position: relative;
+  margin-bottom: 20px;
+
+  i {
+    font-size: 17px;
+    vertical-align: middle;
+  }
+}
+.archaeo-fixed-menu-header {
+  height: 176px;
+  h3 {
+    line-height:22px;
+    padding: 46px 34px;
+  }
+  #archaeo-fixed-menu-logo {
+    background-image: url('../greif.png');
+    background-size: 118px 116px;
+    background-repeat: no-repeat;
+    height: 116px;
+    width : 118px;
+    margin-top:24px;
+    float:left;
+  }
+}
+.affix-menu-wrapper {
+  height:40px;
+}
+.archaeo-fixed-menu #affix-menu.affix {
+  top:0px; left:0px; width:100%;
+}
+
+.archaeo-fixed-menu #archaeo-fixed-menu-icon {
+  display:none;
+  float:left;
+  margin:0 11px 0 -11px;
+  padding: 0px;
+  width: 41px;
+  height: 40px;
+  background-image: url("../kleinergreif.png");
+  background-size: 41px 40px;
+}
+.archaeo-fixed-menu .brand {
+  display: none;
+}
+
+.archaeo-fixed-menu .affix .navbar-inner #archaeo-fixed-menu-icon {
+  display:block;
+}
+.archaeo-fixed-menu .affix .navbar-inner .brand  {
+  display: block;
+}
+

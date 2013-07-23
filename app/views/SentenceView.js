@@ -6,7 +6,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
     
     // View: SentenceView (page content)
     return BookView.extend({
-        className: 'page-view panel full-height',
+        className: 'page-view-tree panel',
         template: '#sentence-template',
         
         initialize: function() {

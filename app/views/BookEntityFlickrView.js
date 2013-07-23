@@ -7,7 +7,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
     
     // View: BookEntityFlickrView (Flickr photos for the entity detail page)
     return BookView.extend({
-        className: 'entity-flickr-view panel fill',
+        className: 'entity-flickr-view panel',
         template: '#flickr-photos-template',
     
         initialize: function() {
