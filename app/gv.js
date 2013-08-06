@@ -5,7 +5,7 @@ define(function() {
 
     // removed in production by uglify
     if (DEBUG) {
-        API_ROOT = 'http://crazyhorse.archaeologie.uni-koeln.de:8080/hellespont-api';
+        API_ROOT = 'http://nighthorse04.dai-cloud.uni-koeln.de:8080/hellespont-api';
         REPORT_URL = '/api/flags/';
         API_DATA_TYPE = 'jsonp';
     }
