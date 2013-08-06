@@ -1,7 +1,7 @@
 /*
  * Reading View
  */
-define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView'], function(gv, BookView, EventListView, TimeMapView) {
+define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView', 'views/SecondaryLiteratureView'], function(gv, BookView, EventListView, TimeMapView, SecondaryLiteratureView) {
     var state = gv.state;
     
     // View: TimemapView
@@ -14,6 +14,7 @@ define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView'], func
                 book = view.model; 
 				view.timeMapView = new TimeMapView();
 			view.eventListView = new EventListView();	
+			view.secondaryLiteratureView = new SecondaryLiteratureView();
             
             		
 			view.bindState('change:readingview', view.changeView, view);
@@ -34,14 +35,19 @@ define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView'], func
 				view.eventListView.render();
 				view.timeMapView.model = book;
 				view.timeMapView.render();
-				view.$el.append(/*$("<div class='eventlist-view fill'></div>").append(*/view.eventListView.$el.toggle(false));
-			view.$el.append(view.timeMapView.$el);
-			
-           //    state.set({ 'readingview': "timemap" }); 
+				view.$el.append(view.eventListView.$el.toggle(false));
+				view.$el.append(view.timeMapView.$el.toggle(false));
+				view.secondaryLiteratureView.model = book;
+				view.secondaryLiteratureView.render();
+				view.$el.append(view.secondaryLiteratureView.$el.toggle(false));
+				if (state.get("readingview")== null || state.get("readingview")=="")
+					state.set({ 'readingview': "timemap" }); 
+				view.$el.children("."+state.get("readingview")+"-view").toggle(true);
             
             return this;
         },
-		changeView: function() {			
+		changeView: function() {	
+	
 			$(".reading-view-left").children("div").toggle(false);
 			$("."+state.get("readingview")+"-view").toggle(true);
 		}

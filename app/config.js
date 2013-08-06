@@ -34,7 +34,9 @@ define({
             router: [
                 'book/:bookid/read', 
                 'book/:bookid/read/:pageid',
-                'book/:bookid/read/:pageid/:entityid'
+				'book/:bookid/read/:pageid/',
+                'book/:bookid/read/:pageid/:entityid',
+				'book/:bookid/read/:pageid/readingview/:readingviewid',
             ],
             slots: {
                 '.navigation-view': 'views/NavigationView',

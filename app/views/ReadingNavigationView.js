@@ -12,9 +12,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         initialize: function() {
             var view = this;
             // listen for all state changes
-           // view.bindState('change', view.updatePermalink, view);
+            view.bindState('change', view.updatePermalink, view);
            // view.bindState('change:entityid', view.updateNavButtons, view);
-            //view.bindState('change:view', view.updateNavButtons, view);
+            view.bindState('change:readingview', view.updateNavButtons, view);
+			view.bindState('change:view', view.updateNavButtons, view);
         },
         
         render: function() {
@@ -34,16 +35,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         },
         
         updateNavButtons: function() {
-            // enable/disable entity view
-            var $entityButton = this.$('[data-view-id=entity-view]'),
-                d = 'disabled';
-            state.get('entityid') ?
-                $entityButton.removeClass(d).removeAttr(d) :
-                $entityButton.addClass(d).attr(d, d);
             // check the appropriate button
             this.$('button').each(function() {
                 var $this = $(this);
-                $this.toggleClass('active', $this.attr('data-view-id') == state.get('view'));
+                $this.toggleClass('active', $this.attr('reading-view-id') == state.get('readingview'));
             });
         },
         
@@ -62,8 +57,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					document.getElementsByClassName('right-panel')[0].removeEventListener('DOMMouseScroll', handleMouseWheel, false); // Others
 					}
 				var viewKey = $(evt.target)
-					.closest('[data-view-id]')
-					.attr('data-view-id');
+					.closest('[reading-view-id]')
+					.attr('reading-view-id');
 				state.set({ 'readingview': viewKey });			
         }
         
