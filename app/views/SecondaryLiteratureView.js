@@ -143,16 +143,21 @@ define(['gv', 'views/BookView'],
 								.css('list-style-image','none');
 							docTemplate.find('li:has(ul)')
 								.click(function(event){
+								
 									if (this == event.target) {
+									
 										$(this).css('list-style-image',
 											(!$(this).children().is(':hidden')) ? 'url(images/plusbox.gif)' : 'url(images/minusbox.gif)');
 										$(this).children().toggle('slow');
+									}
+									else {
+										window.open(this.children("a").attr('href'));
 									}
 									return false;
 								})
 								.css({cursor:'pointer', 'list-style-image':'url(images/plusbox.gif)'})
 								.children().hide();
-							docTemplate.find('li:not(:has(ul))').css({cursor:'default', 'list-style-image':'none'});
+							//docTemplate.find('li:not(:has(ul))').css({cursor:'default', 'list-style-image':'none'});
 								
 								view.$('.seclit').append(docTemplate);
 								
