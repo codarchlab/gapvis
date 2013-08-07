@@ -27,7 +27,6 @@ define(['gv', 'views/BookView'],
         
         // render and update functions
         render: function() {
-	//	alert("hallo");
                  var view = this,
                 book = view.model;	
 				view.$el.empty();
@@ -72,7 +71,7 @@ define(['gv', 'views/BookView'],
 							*/
 							
 							if (docs.length==0){
-								view.$('.article').append('Nothing found for this section!');
+								view.$('.seclit').append('Nothing found for this section!');
 							}
 							$.each(docs,function(key,value){
 								/*
@@ -82,38 +81,32 @@ define(['gv', 'views/BookView'],
 								*/
 								var doc = data[value];								
 								console.log(doc);
-
+								
+								var docTemplate = $(view.documentTemplate(doc));
+								
 								// first we isolate those citations that refer to the text passage that is 
 								// displayed in the ReadingView
 								var inFocusCitations=[];
+									var other_cits = [];
+									
 								for(x in doc.citations){
 									var ctsurn = doc.citations[x].ctsurn;
 									//console.log(ctsurn);
 									if(ctsurn.indexOf(passageInFocus)>=0){
 										inFocusCitations.push(doc.citations[x]);
 									}
+									else if(ctsurn.indexOf(passageInFocus)<0){
+										other_cits.push(doc.citations[x]);
+									}
 								}
-								console.log(inFocusCitations);
-
-								// the templates use the underscore library as in GapVis
-							//	var cit_tmpl = _.template($("#citation-template").html());
-							//	var doc_tmpl = _.template($("#document-template").html());
+								console.log(inFocusCitations);							
 
 								var cits = [];
 								for(cit in inFocusCitations){
 									//cits.push(cit_tmpl(inFocusCitations[cit]))
 									
-									view.$('.citations-in-focus').append(view.citationTemplate(inFocusCitations[cit])+"; ");
-								}
-
-								var other_cits = [];
-								for(n in doc.citations){
-									var ctsurn = doc.citations[n].ctsurn;
-									//console.log(ctsurn);
-									if(ctsurn.indexOf(passageInFocus)<0){
-										other_cits.push(doc.citations[n]);
-									}
-								}
+									docTemplate.find('.citations-in-focus').append(view.citationTemplate(inFocusCitations[cit])+"; ");
+								}							
 
 								/*
 								
@@ -130,13 +123,38 @@ define(['gv', 'views/BookView'],
 								});
 
 								var cits_by_author=[];
-								view.$('.other-citations').children('ul').append('<p>Also cited:</p>');
+								docTemplate.find('.other-citations').children('ul').append('<h4 class="section-heading">Also cited:</h4>');
+								
 								for (group in groups){
-									for(cit in groups[group]){										
-										view.$('.other-citations').children('ul').append('<li>'+view.citationTemplate(groups[group][cit])+'</li>');
+									var groupTitle = "";
+									if (groups[group][0].label.replace(' ','').length>0)
+										groupTitle = groups[group][0].label.substr(0,groups[group][0].label.indexOf('.'))+'.';
+									else
+										groupTitle = groups[group][0].ctsurn.substr(0,groups[group][0].ctsurn.lastIndexOf(':'));
+									groupTitle+= " ("+groups[group].length+")";	
+									docTemplate.find('.other-citations').children('ul').append('<li>'+groupTitle+'<ul></ul></li>');
+									for(cit in groups[group]){													
+										docTemplate.find('ul:last').append('<li>'+view.citationTemplate(groups[group][cit])+'</li>');
 									}
+									
 								}
-								view.$('.article').append(view.documentTemplate(doc));
+								docTemplate.find('li')
+								.css('pointer','default')
+								.css('list-style-image','none');
+							docTemplate.find('li:has(ul)')
+								.click(function(event){
+									if (this == event.target) {
+										$(this).css('list-style-image',
+											(!$(this).children().is(':hidden')) ? 'url(images/plusbox.gif)' : 'url(images/minusbox.gif)');
+										$(this).children().toggle('slow');
+									}
+									return false;
+								})
+								.css({cursor:'pointer', 'list-style-image':'url(images/plusbox.gif)'})
+								.children().hide();
+							docTemplate.find('li:not(:has(ul))').css({cursor:'default', 'list-style-image':'none'});
+								
+								view.$('.seclit').append(docTemplate);
 								
 							});
 						});
