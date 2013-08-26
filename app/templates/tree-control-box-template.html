@@ -1,0 +1,21 @@
+<div class="tree-control-box">
+<i style="margin-right:5px;" class="icon-zoom-in icon-black"/>
+<i style="margin-right:5px;" class="icon-zoom-out icon-black"/>
+<div style="margin-top:10px;"><b>Sentences:</b>
+<span class="nextprev">
+    <span class="prev-tree control">&lt;&lt; previous</span>
+    <select class="tree-id" maxlength="5"><% _.each(trees, function(tree) { 
+	%><option value="<%=tree%>"><%=tree%></option><%
+	}); %></select>
+    <span class="next-tree control">next &gt;&gt;</span>
+</span>
+</div>
+<div style="margin-top:10px;"><b>Chapters:</b>
+<span class="nextprev">
+    <span class="prev control">&lt;&lt; previous</span>
+    <input class="page-id" maxlength="5">
+    <span class="next control">next &gt;&gt;</span>
+</span>
+</div>
+
+</div>

@@ -69,47 +69,15 @@ define(['gv', 'views/BookView'],
             });
 				
         },
-        
-        openWindow: function() {
-            var view = this,
-                book = view.model,
-                map = view.map,
-                entityId = state.get('entityid'),
-                entity;
-            // if no map has been set, give up
-            if (!map) return;
-            // if there's no entity selected, close the window
-            if (!entityId) {
-                map.closeBubble();
-                return;
-            }
-            // get the entity
-            entity = book.entities.get(entityId);
-            // if the entity isn't fully loaded, do so
-            entity.ready(function() {
-                // create content
-                view.renderTemplate(entity.toJSON());
-                // add frequency bars
-                
-            });
+		events: {
+            'click .switchview':       'switchToTree'
         },
         
-        renderZoomControl: function() {
-            this.$('.zoom').toggleClass('on', state.get('mapzoom') < 12);
-        },
-        
-        renderNextPrevControl: function() {
-            var view = this,
-                pageId = state.get('pageid'),
-                entityId = state.get('entityid');
-            view.ready(function() {
-                var book = view.model,
-                    prev = view.prev = book.prevEntityRef(pageId, entityId),
-                    next = view.next = book.nextEntityRef(pageId, entityId);
-                view.$('.prev').toggleClass('on', !!prev);
-                view.$('.next').toggleClass('on', !!next);
-                view.$('.controls').toggle(!!(prev || next));
-            });
+        switchToTree: function(evt) {
+		var treebank = $(evt.target).attr('treebank');
+			state.set({ treebankid: treebank });
+			state.set({treeid: treebank.substr(treebank.indexOf('s')+1,(treebank.indexOf('n')-2)-treebank.indexOf('s'))});
+            state.set({ view: "tree-view" });
         }
     });
     
