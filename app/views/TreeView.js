@@ -65,11 +65,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 			            
             return this;
         },
-		
-	/*	events: {
-            'mouseover .node-dot':       'highlight',
-            'mouseover text':     		'highlight'
-        },	*/	
+			
 		visit: function (parent, visitFn, childrenFn)
 		{
 			var view = this;
@@ -87,17 +83,14 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 		},
 		addSentence: function (sentence){
 			// Write sentence in sentence container
-			var words = sentence.split(" ");
-			for (var i= 0; i<words.length; i++){
+			var view =this;			
 				newspan = document.createElement('span');
-				$(newspan).append(document.createTextNode(words[i]));
-				$(newspan).attr('id','sentence-word'+(i+1));
-				if (i != 0 && words[i]!= ',' && words[i] != '.')
-					$('#sentence-container').append(document.createTextNode(" "));
-				$('#sentence-container').append(newspan);				
-				$(newspan).addClass("word"+(i+1));
-				$(newspan).addClass("sentence-word");
-			}
+				$(newspan).append(sentence);
+				
+				$('#sentence-container').append(newspan);
+				$(newspan).children('span').bind( "mouseover", function(event){view.highlight(event)});
+				$(newspan).children('span').bind( "click", function(event){view.highlightPermanent(event)});
+			
 		},
 		buildTree: function (containerName, data, customOptions)
 		{
@@ -128,8 +121,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 			
 			if (state.get('treebankid')!=null&&state.get('treebankid').length>0){		
 				var svg =  d3.select($container[0]);
-				svg.select("."+state.get('treebankid')).attr("fill", "#ffff00").attr("rx", 7).attr("ry", 7).attr("stroke", "#ffff00");
-				$("."+state.get('treebankid')).trigger("mousedown");
+				$("."+state.get('treebankid')).trigger("click");
 			}
 				
 
@@ -201,8 +193,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 			
 			var p = getEventPoint(evt);
 
-			p = p.matrixTransform(g.getCTM().inverse());		
-
+			p = p.matrixTransform(g.getCTM().inverse());
+			
 			// Compute new scale matrix in current mouse position
 			var root = $('.svgCanvas')[0];
 			var k = root.createSVGMatrix().translate(p.x, p.y).scale(z).translate(-p.x, -p.y);
@@ -304,7 +296,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             'change .tree-id':      'uiJumpToTree',
 			  'click .next.on':       'uiNext',
             'click .prev.on':       'uiPrev',
-            'change .page-id':      'uiJumpToPage'
+            'change .page-id':      'uiJumpToPage',
+			'mouseover .sentence-word':       'highlight',
+            'mouseover ellipse':     		'highlight',
+			'click ellipse':			'highlightPermanent'
         }	
         
     });  

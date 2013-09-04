@@ -123,7 +123,7 @@ define(['gv', 'views/BookView'],
 								});
 
 								var cits_by_author=[];
-								docTemplate.find('.other-citations').children('ul').append('<h4 class="section-heading">Also cited:</h4>');
+								docTemplate.find('.other-citations').children('ul').append('<h4 class="section-heading"><b>Also cited:</b> (Links to Perseus)</h4>');
 								
 								for (group in groups){
 									var groupTitle = "";
