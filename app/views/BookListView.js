@@ -51,6 +51,8 @@ define(['gv'], function(gv) {
                 var item = new BookListItemView({ model:book });
                 view.$('.book-list').append(item.render().el);
             });
+			
+			view.$('a.gallery').colorbox({rel:'gal'});
         }
     });
     

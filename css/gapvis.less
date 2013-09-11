@@ -1,5 +1,6 @@
 
 @import "bootstrap.less";
+@import "../lib/colorbox/colorbox.css";
 
 // ---------------------------------------------------
 // Settings
@@ -43,6 +44,16 @@ html, body {
 h1, h2, h3, h4 {
     color: @daiHeadlineBlack;
 	line-height: 20px;
+}
+h1{
+ .book-title {
+        color: @linkColor;
+        cursor: pointer;
+        
+        .book-title:hover {
+            color: @linkColorHover;
+        }
+}
 }
 h4 {
     font-style: italic;
@@ -226,7 +237,7 @@ footer {
 
 // image thumbnails
 .thumbs {
-    width: 100px;
+    width: 102px;
     margin-left: 1em;
     float: right;
     
@@ -714,10 +725,15 @@ font-style: italic;
 }
 .highlight-p{
 	background-color: #ff00ff;
+	cursor:pointer;
 }
 
 .highlight {
 	background-color: #ffff00;
+	cursor:pointer;
+}
+ellipse {
+cursor: pointer;
 }
 td {
 vertical-align:top;

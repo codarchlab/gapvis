@@ -1,10 +1,12 @@
-<h2>Overview</h2>
+<br/>
 <div class="thumbs">
-    <img src="images/thumb1.jpg" alt="Map view">
-    <img src="images/thumb2.jpg" alt="Sparkline view">
+    <img src="images/thumb1.jpg" alt="Map view" title="Map view" class="panel">
+    <img src="images/thumb2.jpg" alt="Reading view" title="Reading view" class="panel">
+	<img src="images/thumb3.jpg" alt="Secondary Literature" title="Secondary Literature" class="panel">
+	<img src="images/thumb4.jpg" alt="Tree view" title="Tree view" class="panel">
 </div>
 <p>
-    GapVis is an interface for exploring and reading texts that reference ancient entities. It includes maps and data visualizations that show what locations are referred to a different points in the narrative and allows you to dig into the details to learn more.
+    <b>GapVis</b> is an interface for exploring and reading texts that reference ancient entities and was originally developed for the <a href="http://googleancientplaces.wordpress.com/gapvis/" target="_blank">Google Ancient Places project</a>. <br/>It was then adapted by the Hellespont project and modified for our needs. GapVis includes maps and data visualizations that show what entities are referred to a different points in the narrative and allows you to dig into the details to learn more.
 </p>
 <!--[if lt IE 9]>
 <p class="warning">
@@ -13,13 +15,22 @@
 <![endif]-->
 <h3>Book Summary</h3>
 <p>
-    The Summary view gives you a big-picture perspective on what entities are referenced in the book and where they appear in the narrative structure.
+    The Summary View gives you a big-picture perspective on what entities are referenced in the text passage and where they appear in the narrative structure.
 </p>
 <h3>Reading View</h3>
 <p>
-    The Reading view offers an interface for reading the text, including a narrative timeline and a map of recently-referenced entities.
-</p>
+    The Reading View offers an interface for reading the text, including a narrative timeline and a map of recently-referenced entities which are based on the manual annotation by Agnes Thomas. <br/>
+	<b><a href="/gapvis/#book/1/read/90/pers1398714">&rsaquo;&rsaquo; Example for referenced entity</a></b><br/>
+	Additionally, there is the possibility to view related events (historical as well a linguistic) and secondary literature (extracted from <a href="http://www.jstor.org/" target="_blank">JSTOR</a> by Matteo Romanello) of the current test passage.
+	<b><a href="/gapvis/#book/1/read/104?bookid=1&pageid=104&pageview=text&readingview=secondaryliterature">&rsaquo;&rsaquo; Example for secondary literature</a></b>
+	</p>
 <h3>Entity Detail</h3>
 <p>
-    The Entity Detail view provides deeper information about a particular geographic location, including a network map of related entities based on narrative co-reference.
+    The Entity Detail view provides deeper information about a particular entity, including its geographic location, links to other databases and a network map of related entities based on narrative co-reference.
+	<br/><b><a href="/gapvis/#book/1/entity/pers1398714">&rsaquo;&rsaquo; Example for Entity Detail View</a></b>
+</p>
+<h3>Tree View</h3>
+<p>
+	The Tree View includes two kind of linguistic trees (syntactical and tectrogrammatical) for the currently active sentence based on Treebank annotation by Francesco Mambrini.
+	<b><a href="/gapvis/#book/1/read/89/tree/1">&rsaquo;&rsaquo; Example for Tree View</a></b>
 </p>
