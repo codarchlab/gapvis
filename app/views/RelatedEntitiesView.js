@@ -22,9 +22,16 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             entity.ready(function() {
                 var related = entity.related(book).slice(0, gv.settings.relatedCount);
                 // create content
-                view.$el.append('<h4>Top Related Entities</h4>');
+                view.$el.append('<h4>Top Co-referenced Entities</h4>');
                 related.forEach(function(r) {
-                    $('<p><span class="entity '+r.entity.get('type')+'" data-entity-id="' + 
+					var iconclass;
+					if (r.entity.get('type')=='PERSON')
+						iconclass = 'user';
+					else if (r.entity.get('type')=='ORGANISATION')
+						iconclass = 'group';
+					else
+						iconclass = 'globe';
+                    $('<p><i class="icon-black icon-'+iconclass+'"></i> <span class="entity '+r.entity.get('type')+'" data-entity-id="' + 
                         r.entity.id + '">' + r.entity.get('title') +
                         '</span> (' + r.count + ')</p>').appendTo(view.el);
                 });

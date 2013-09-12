@@ -30,15 +30,18 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             view.renderEntityHighlight();
 		//	view.renderConnectedTrees();
 			view.delegateEvents();
-			 
             return view;
         },
         renderPageView: function() {
             var view = this,
                 pageView = state.get('pageview');
             // render
-            view.$('.text').toggle(pageView == 'text');
-            view.$('.img').toggle(pageView == 'image');
+			if (pageView== null || pageView==""){
+				pageView = 'grc';
+				state.set({ 'pageview': pageView }); 
+			}
+            view.$('.text').toggle(pageView == 'grc');
+            view.$('.engText').toggle(pageView == 'eng');
         },
         
         renderEntityHighlight: function() {
@@ -98,7 +101,8 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
             var entityId = $(e.target).attr('data-entity-id');
             if (entityId) {
                 state.set('entityid', entityId);
-            }
+            }			
+			state.set({ 'readingview': 'timemap' });
         },
 		uiTreeClick: function(e) {
             var treeId = $(e.target).attr('tree-id');			

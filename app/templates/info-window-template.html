@@ -1,5 +1,5 @@
-<h3><%= title %> <span class="zoom control on">(Zoom In)</span></h3>
-<p><span class="control on goto-entity">View Details &gt;&gt;</span><p>
+<div style="vertical-align:middle; height:104px;display:table-cell;"><i class="icon-black icon-<% if (type=="ORGANISATION"){%>group<%} else if (type=="PERSON"){%>user<%} else {%>globe<%} %>"></i> <span class="infowindow-h3 goto-entity"><%= title %></span> <span class="zoom control on">(Zoom In)</span>
+<!--<p><span class="control on goto-entity">View Details &gt;&gt;</span><p>-->
 <div class="frequency-bars"></div>
 <p>
     <span class="frequency"><%= frequency %></span> reference<%= frequency == 1 ? "" : "s" %><span class="controls">:
@@ -7,4 +7,4 @@
         <span class="control prev">&lt;&lt; prev</span> | 
         <span class="control next">next &gt;&gt;</span>
     </span>
-</p>
+</p></div>

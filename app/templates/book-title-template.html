@@ -1,7 +1,6 @@
 <h1 class="book-title"><%= title %></h1>
 <p><em><%= author %></em></p>
-<p>
-   <!-- Published <%= printed %><!--, <%= pages.length %> pages --> &middot;
-    <a target="_blank" href="<%= "http://data.perseus.org/citations/"+gv.state.getCtsUrn()
-	%>"><b>View on Perseus:</b> <%= gv.state.getCtsUrn() %></a>
+<p>  
+    <b>Current passage on Perseus:</b> <i class="icon-black icon-circle-arrow-right"></i><a target="_blank" href="<%= "http://data.perseus.org/citations/"+gv.state.getCtsUrn()
+	%>"> <%= gv.state.getCtsUrn() %></a>
 </p>

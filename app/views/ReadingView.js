@@ -40,16 +40,16 @@ define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView', 'view
 				view.secondaryLiteratureView.model = book;
 				view.secondaryLiteratureView.render();
 				view.$el.append(view.secondaryLiteratureView.$el.toggle(false));
-				if (state.get("readingview")== null || state.get("readingview")=="")
-					state.set({ 'readingview': "timemap" }); 
-				view.$el.children("."+state.get("readingview")+"-view").toggle(true);
+				if (state.get('readingview')== null || state.get('readingview')=="")
+					state.set({ 'readingview': 'timemap' }); 
+				view.$el.children("."+state.get('readingview')+"-view").toggle(true);
             
             return this;
         },
 		changeView: function() {	
 	
 			$(".reading-view-left").children("div").toggle(false);
-			$("."+state.get("readingview")+"-view").toggle(true);
+			$("."+state.get('readingview')+"-view").toggle(true);
 		}
         
        

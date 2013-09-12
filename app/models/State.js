@@ -15,8 +15,9 @@ define(['gv'], function(gv) {
         },
     
         defaults: {
-            pageview: 'text',
-            barsort: 'ref'
+            pageview: 'grc',
+            barsort: 'ref',
+			readingview: 'timemap'
         },
 		    
 		getCtsUrn: function(){

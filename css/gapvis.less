@@ -1,6 +1,7 @@
 
 @import "bootstrap.less";
 @import "../lib/colorbox/colorbox.css";
+@import "../lib/bootstrap/less/responsive.less";
 
 // ---------------------------------------------------
 // Settings
@@ -28,12 +29,10 @@
 // Special Colors
 // ---------------------------------------------------
 
-@pers-color: #DA140A;
-@org-color: #96C3FA;
-@place-color: #ADADAD;
-@geog-color: #BCCFA1;
-
-
+@geog-color: #baffba;
+@pers-color: #ffbaba;
+@org-color: #babaff;
+@place-color: #b6b6b6;
 
 // ---------------------------------------------------
 // Basic elements
@@ -43,7 +42,7 @@ html, body {
 }
 h1, h2, h3, h4 {
     color: @daiHeadlineBlack;
-	line-height: 20px;
+	line-height: 25px;
 }
 h1{
  .book-title {
@@ -420,7 +419,7 @@ height: @general-height;
 overflow: auto;
 }
 // single page view
-.text {
+.text, .engText {
  padding: 1.5em 12px;
 }
 .single-page {
@@ -463,9 +462,7 @@ overflow: auto;
         margin-top: 0;
     }
 }
-.related-entities-view p {
-    font-size: .88em;
-}
+
 
 // flickr photos
 .entity-flickr-view {
@@ -567,15 +564,20 @@ div.timeline-event-label {
 .infowindow {
     height: 8em;
     width: 280px;
-    
-    h3 {
+	font-family: @sansFontFamily;
+    span.infowindow-h3 {
         margin: 0 0 .1em 0;
+		 color: @daiHeadlineBlack;
+		line-height: 20px;
+		font-size: 16pt;
+		cursor:pointer;
     }
+
     p {
         margin: 0 0 .5em 0;
     }
     span.zoom {
-        font-size: .6em;
+        //font-size: .6em;
     }
     .pagenum {
         color: #999;
@@ -627,11 +629,12 @@ div.timeline-event-label {
 	fill:  @org-color;
 }
 #legend {
-	position: fixed;
-	top: 105px;
-   right: 41px;
+	position: absolute;
+	top: 275px;
+   right: 58px;
    z-index:199;
    padding: 10px;
+   width:100px;
    font-family: @sansFontFamily;
 }
 .connected-trees-view {
@@ -760,4 +763,9 @@ cursor: pointer;
 			font-size:14pt;
 			cursor:pointer;
 		}
+}
+
+.control-desc{
+padding-right: 30px;
+
 }

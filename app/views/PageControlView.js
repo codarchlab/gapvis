@@ -42,8 +42,10 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             var view = this,
                 pageView = state.get('pageview');
             // render
-            view.$('.showimg').toggleClass('on', pageView == 'text');
-            view.$('.showtext').toggleClass('on', pageView == 'image');
+			if (state.get('view') == 'reading-view'){
+				view.$('.showeng').toggleClass('on', pageView == 'grc');
+				view.$('.showgrc').toggleClass('on', pageView == 'eng');
+			}
         },
         
         // UI Event Handlers - update state
@@ -51,8 +53,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         events: {
             'click .next.on':       'uiNext',
             'click .prev.on':       'uiPrev',
-            'click .showimg.on':    'uiShowImage',
-            'click .showtext.on':   'uiShowText',
+            'click .showeng.on':    'uiShowEnglish',
+            'click .showgrc.on':   'uiShowGreek',
             'change .page-id':      'uiJumpToPage'
         },
         
@@ -64,12 +66,12 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             state.set({ pageid: this.prev });
         },
         
-        uiShowImage: function() {
-            state.set({ pageview:'image' })
+        uiShowEnglish: function() {
+            state.set({ pageview:'eng' })
         },
         
-        uiShowText: function() {
-            state.set({ pageview:'text' })
+        uiShowGreek: function() {
+            state.set({ pageview:'grc' })
         },
         
         uiJumpToPage: function(e) {
