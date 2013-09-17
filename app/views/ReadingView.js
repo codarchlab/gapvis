@@ -30,7 +30,7 @@ define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView', 'view
             var view = this,
                 book = view.model;   
             // render template HTML
-			//view.$el.html(view.template);   
+			//view.$el.html(view.template); 
 				view.eventListView.model = book;
 				view.eventListView.render();
 				view.timeMapView.model = book;
@@ -47,9 +47,13 @@ define(['gv', 'views/BookView', 'views/EventListView','views/TimeMapView', 'view
             return this;
         },
 		changeView: function() {	
-	
-			$(".reading-view-left").children("div").toggle(false);
-			$("."+state.get('readingview')+"-view").toggle(true);
+			if (state.get('readingview')=="timemap"){
+				this.render();			
+			}
+			else {
+				$(".reading-view-left").children("div").toggle(false);
+				$("."+state.get('readingview')+"-view").toggle(true);
+			}
 		}
         
        
