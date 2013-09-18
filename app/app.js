@@ -42,6 +42,7 @@ require(['gv', 'config', 'models/Books', 'models/State', 'views/AppView', 'views
 	gv.addParameter('readingview', { deserialize: String });
 	gv.addParameter('sectionid');
     gv.addParameter('barsort');
+	gv.addParameter('eventid', { deserialize: parseInt });
 	gv.addParameter('treebankid', {deserialize: String});
     gv.addParameter('mapzoom', { deserialize: parseInt });
     gv.addParameter('mapcenter', { 

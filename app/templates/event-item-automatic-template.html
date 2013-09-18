@@ -1,3 +1,3 @@
-<p><i class="icon-bolt icon-black"></i> <b><a href="http://crazyhorse.archaeologie.uni-koeln.de/ThucDb/event/<%= id %>" target="_blank"><%= keyword %>: <%=(value=="\"\"")?"Untitled event":value %></a></b><br/>
+<p><i class="icon-bolt icon-black"></i> <b><span class="switchevent control on" eventId="<%= id %>"><%= keyword %>: <%=(value=="\"\"")?"Untitled event":value %></span></b><br/>
 <b>ID: </b><%= id %><br/>
-Show in <b><i class="icon-leaf icon-black"> </i><span class="switchview" treebank="<%= treebankId %>">Tree View</span></b></p>
+Show in <b><i class="icon-leaf icon-black"> </i><span class="switchview" treebank="<%= treebankId %>" id="<%= id %>">Tree View</span></b></p>

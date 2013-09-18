@@ -112,6 +112,35 @@ define({
                     }
                 }
             }
+        },
+		'event-view': {
+            layout:  '#layout-book-2panel',
+            className: 'event-view',
+            router: 'book/:bookid/event/:eventid',
+            refreshOn: 'change:eventid',
+            slots: {
+                '.navigation-view': 'views/NavigationView',
+                '.book-title-view': 'views/BookTitleView',
+                '.left-panel': {
+                    className: 'event-summary panel fill padded-scroll',
+                    slots: {
+                        'this': [
+                            'views/EventSummaryView'
+							//'views/BookEntityArachnePicturesView',
+                            //'views/BookReferencesView',
+                            //'views/RelatedEntitiesView'
+                        ]
+                    }
+                },
+                '.right-panel': {
+                    layout: '#layout-full-top',
+                    className: 'event-view-right',
+                    slots: {
+                       // '.top-slot': 'views/BookEntityMapView',
+                        //'.bottom-slot': 'views/BookEntityFlickrView'
+                    }
+                }
+            }
         }
     },
     // number of related entities to show

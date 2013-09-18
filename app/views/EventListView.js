@@ -40,7 +40,7 @@ define(['gv', 'views/BookView'],
 				// add loading spinner
 				view.$el.addClass('loading');
 				$.ajax({			
-                url: "http://crazyhorse.archaeologie.uni-koeln.de/ThucDb/e5Event/ctsUrn/"+state.getCtsUrn(),
+                url: "http://hellespont.dainst.org/ThucDb/e5Event/ctsUrn/"+state.getCtsUrn(),
                 dataType: 'jsonp',
 				
                 success: function(data) {
@@ -70,14 +70,22 @@ define(['gv', 'views/BookView'],
 				
         },
 		events: {
-            'click .switchview':       'switchToTree'
+            'click .switchview':       'switchToTree',
+			'click .switchevent':       'switchEvent',
         },
         
         switchToTree: function(evt) {
-		var treebank = $(evt.target).attr('treebank');
+		var treebank = $(evt.target).attr('treebank'),
+		eventId=$(evt.target).attr('id');
+			state.set({eventid: eventId});
 			state.set({ treebankid: treebank });
 			state.set({treeid: treebank.substr(treebank.indexOf('s')+1,(treebank.indexOf('n')-2)-treebank.indexOf('s'))});
             state.set({ view: "tree-view" });
+        },
+		  switchEvent: function(evt) {		
+			var eventId=$(evt.target).attr('eventId');
+			state.set({eventid: eventId});       
+			state.set({view: 'event-view'});
         }
     });
     

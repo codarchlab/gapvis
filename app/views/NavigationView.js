@@ -13,6 +13,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
             // listen for all state changes
             view.bindState('change', view.updatePermalink, view);
             view.bindState('change:entityid', view.updateNavButtons, view);
+			view.bindState('change:eventid', view.updateNavButtons, view);
             view.bindState('change:view', view.updateNavButtons, view);
         },
         
@@ -35,10 +36,14 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         updateNavButtons: function() {
             // enable/disable entity view
             var $entityButton = this.$('[data-view-id=entity-view]'),
+			$eventButton = this.$('[data-view-id=event-view]'),
                 d = 'disabled';
             state.get('entityid') ?
                 $entityButton.removeClass(d).removeAttr(d) :
                 $entityButton.addClass(d).attr(d, d);
+			 state.get('eventid') ?
+                $eventButton.removeClass(d).removeAttr(d) :
+                $eventButton.addClass(d).attr(d, d);	
             // check the appropriate button
             this.$('button').each(function() {
                 var $this = $(this);
