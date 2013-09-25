@@ -9,58 +9,59 @@
 
 <%  if( p11HadParticipant.length){ %><h4>Had Participants</h4><ul>
 <% _.each( p11HadParticipant, function(actor) { %>
-<li><i class="icon-<% if (actor.P2HasType == "Group"){ %>group<%} else { %>user<% } %> icon-black"></i>
-<% if (actor.p48HasPreferredIdentifier.length){ %><span class="entityswitch control on" entityId="<%= actor.p48HasPreferredIdentifier[0].value %>"><%=  actor.value %> / <%=  actor.greekValue %></span><% } else { %> <%=  actor.value %> / <%=  actor.greekValue %><% }%></li>
+<li><i class="icon-<% if (actor.p2HasType == "Group"){ %>group<%} else { %>user<% } %> icon-black"></i>
+<% if (actor.identifier.length){ %><span class="entityswitch control on" entityId="<%= actor.identifier[0].value %>"><%=  actor.value %> / <%=  actor.greekValue %></span><% } else { %> <%=  actor.value %> / <%=  actor.greekValue %><% }%></li>
 <% });} %>
 </ul>
 
 <%  if( p7TookPlaceAt.length){ %><h4>Took Place at</h4><ul>
 <% _.each( p7TookPlaceAt, function(place) { %>
 <li><i class="icon-globe icon-black"></i>
-<% if (place.p48HasPreferredIdentifier.length){ %><span class="entityswitch control on" entityId="<%= place.p48HasPreferredIdentifier[0].value %>"><%=  place.value %> / <%=  place.greekValue %></span><% } else { %> <%=  place.value %> / <%=  place.greekValue %><% }%></li>
+<% if (place.identifier.length){ %><span class="entityswitch control on" entityId="<%= place.identifier[0].value %>"><%=  place.value %> / <%=  place.greekValue %></span><% } else { %> <%=  place.value %> / <%=  place.greekValue %><% }%></li>
 <% });} %>
 </ul>
 
 <%  if( p17WasMotivatedBy.length){ %><h4>Was Motivated by</h4><ul>
 <% _.each( p17WasMotivatedBy, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
-<%  if( p17IMotivated.length){ %><h4>Motivated</h4><ul>
-<% _.each( p17IMotivated, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<%  if( p17Motivated.length){ %><h4>Motivated</h4><ul>
+<% _.each( p17Motivated, function(event) { %>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
 <%  if( p10FallsWithin.length){ %><h4>Forms Part of</h4><ul>
 <% _.each( p10FallsWithin, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
 <%  if( p10Contains.length){ %><h4>Consists of</h4><ul>
 <% _.each( p10Contains, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
 <%  if( p120OccursBefore.length){ %><h4>Occurs Before</h4><ul>
 <% _.each( p120OccursBefore, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
 <%  if( p120IOccursAfter.length){ %><h4>Occurs After</h4><ul>
 <% _.each( p120IOccursAfter, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>
 
 <%  if( p117OccursDuring.length){ %><h4>Occurs During</h4><ul>
 <% _.each( p117OccursDuring, function(event) { %>
-<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><%=  event.value %></span> </li>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
+</ul>
 
 <%  if( p70IIsDocumentedIn.length){ %><h4>Documented in</h4><ul>
 <% _.each( p70IIsDocumentedIn, function(document) { %>

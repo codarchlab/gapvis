@@ -39,8 +39,8 @@ define(['gv', 'views/BookView'],
             // get event from ThucDb
 			
             $.ajax({			
-                url: 'http://localhost/ThucDb/event/'+eventId+'.json',
-                dataType: 'json',
+                url: 'http://hellespont.dainst.org/ThucDb/event/'+eventId+'.json',
+                dataType: 'jsonp',
 				
                 success: function(data) {
                     view.$el.removeClass('loading');
