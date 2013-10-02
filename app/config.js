@@ -136,7 +136,7 @@ define({
                     layout: '#layout-full-top',
                     className: 'event-view-right',
                     slots: {
-                       // '.top-slot': 'views/BookEntityMapView',
+                        '.top-slot': 'views/EventTimelineView',
                         //'.bottom-slot': 'views/BookEntityFlickrView'
                     }
                 }
