@@ -74,6 +74,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 					   $.ajax({
 								url: 'http://hellespont.dainst.org/ThucDb/e5Event/list.json',
 								dataType: 'jsonp',
+								cache: true,
 								success: function(data) {
 									view.$el.removeClass('loading');
 									var events = new Array();
@@ -102,20 +103,29 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 											}								
 											durationEvent = true;
 										}
+										
 										var icon = "/gapvis/images/blue-circle.png";
 										var color = "#58A0DC";
+										var classname = "hornblower";
+										
+										if (data.events[i].p70IIsDocumentedIn.length>0&&data.events[i].p70IIsDocumentedIn[0].type=="Deane"){
+											icon = "/gapvis/images/ltblue-circle.png";	
+											 color = "#67dddd";
+											 classname = "deane";
+										}
 										
 										if (eventId==data.events[i].id && start!=null){
 											icon = "/gapvis/images/orange-circle.png";
 											this.centerDate = start;							
 											 color = "#ffa500";
+											 classname = "tl-highlight";
 										}
 										
 										events[i]={"title" : data.events[i].title, 
 										"description" : "ID "+data.events[i].id, 
 										"end" : end, "start" : start, "durationEvent" : durationEvent, 
 										"icon":icon, "color":color, "textColor": "#00000",
-										"classname":data.events[i].id};
+										"classname":data.events[i].id+" "+classname};
 										
 										
 									} 
@@ -134,7 +144,7 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 		events: {
             'click .timeline-event-label': 'goToEvent',
 			'click .timeline-event-icon': 'goToEvent',
-			'click .timeline-event-tape': 'goToEvent'
+			'click .timeline-event-tape': 'goToEvent',
         },
 		goToEvent: function(evt){
 			var eventId=$(evt.target).attr('class').replace(/(([^\s\d]+)-*\d*)|\s/g, "");

@@ -58,7 +58,8 @@ define(['gv', 'views/BookView'],
         },
 		events: {
             'click .switchview':       'switchEvent',
-			'click .entityswitch':		'switchEntity'
+			'click .entityswitch':		'switchEntity',
+			'click .treeswitch':       'switchToTree'
         },
         
         switchEvent: function(evt) {		
@@ -69,7 +70,13 @@ define(['gv', 'views/BookView'],
 			var entityId=$(evt.target).attr('entityId');
 			state.set({entityid: entityId});
 			state.set({view: 'entity-view'});
-        }
+        },
+		 switchToTree: function(evt) {
+			var treebank = $(evt.target).attr('treebank');
+			state.set({ treebankid: treebank });
+			state.set({treeid: treebank.substr(treebank.indexOf('s')+1,(treebank.indexOf('n')-2)-treebank.indexOf('s'))});
+            state.set({ view: "tree-view" });
+        },
     });
     
 });

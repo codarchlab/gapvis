@@ -137,7 +137,7 @@ define({
                     className: 'event-view-right',
                     slots: {
                         '.top-slot': 'views/EventTimelineView',
-                        //'.bottom-slot': 'views/BookEntityFlickrView'
+                        '.bottom-slot': 'views/EventTimelineLegendView'
                     }
                 }
             }

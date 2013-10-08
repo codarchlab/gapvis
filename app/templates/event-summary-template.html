@@ -1,6 +1,8 @@
 <h2><i class="icon-bolt icon-black"></i> <% if(keyword!=null) { %><%= keyword %>: <%= value %><% } else { %><%=value %><% } %></h2>
 <h3><b>Event Type: </b><%= P2HasType %></h3>
 
+<% if( treebankId != null&& treebankId.length){  %>Show in <b><i class="icon-leaf icon-black"> </i><span class="treeswitch" treebank="<%= treebankId %>" id="<%= id %>">Tree View</span></b><% } %>
+
 <%  if( p4HasTimeSpan.length){ %><h4>Dating</h4><ul>
 <% _.each( p4HasTimeSpan, function(time) { %>
 <li><% if (time.type!= "normal"){ %><b><%= time.type %>:</b> <%} %><%=  time.p78IsIdentifiedBy[0].value %></li>
