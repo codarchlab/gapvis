@@ -99,7 +99,8 @@ define({
                             'views/EntitySummaryView',
 							'views/BookEntityArachnePicturesView',
                             'views/BookReferencesView',
-                            'views/RelatedEntitiesView'
+                            'views/RelatedEntitiesView',
+							'views/EntityEventView'
                         ]
                     }
                 },
