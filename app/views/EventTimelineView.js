@@ -104,18 +104,18 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
 											durationEvent = true;
 										}
 										
-										var icon = "/gapvis/images/blue-circle.png";
+										var icon = "http://gapvis.hellespont.dainst.org/images/blue-circle.png";
 										var color = "#58A0DC";
 										var classname = "hornblower";
 										
 										if (data.events[i].p70IIsDocumentedIn.length>0&&data.events[i].p70IIsDocumentedIn[0].type=="Deane"){
-											icon = "/gapvis/images/ltblue-circle.png";	
+											icon = "http://gapvis.hellespont.dainst.org/images/ltblue-circle.png";	
 											 color = "#67dddd";
 											 classname = "deane";
 										}
 										
 										if (eventId==data.events[i].id && start!=null){
-											icon = "/gapvis/images/orange-circle.png";
+											icon = "http://gapvis.hellespont.dainst.org/images/orange-circle.png";
 											this.centerDate = start;							
 											 color = "#ffa500";
 											 classname = "tl-highlight";
