@@ -72,6 +72,8 @@ define(['gv', 'views/BookView'],
 		events: {
             'click .switchview':       'switchToTree',
 			'click .switchevent':       'switchEvent',
+			'mouseover .switchevent':	'highlightInText',
+			'mouseout .switchevent':	'resetUrn'
         },
         
         switchToTree: function(evt) {
@@ -86,7 +88,14 @@ define(['gv', 'views/BookView'],
 			var eventId=$(evt.target).attr('eventId');
 			state.set({eventid: eventId});       
 			state.set({view: 'event-view'});
-        }
+        },
+		highlightInText: function(evt) {
+			var urnString = $(evt.target).attr('urn');
+			state.setCtsUrn(urnString);
+		},
+		resetUrn: function(evt) {
+			state.setCtsUrn('');
+		}
     });
     
 });

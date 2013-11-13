@@ -1,7 +1,11 @@
 <h2><i class="icon-bolt icon-black"></i> <% if(keyword!=null) { %><%= keyword %>: <%= value %><% } else { %><%=value %><% } %></h2>
 <h3><b>Event Type: </b><%= P2HasType %></h3>
 
-<% if( treebankId != null&& treebankId.length){  %>Show in <b><i class="icon-leaf icon-black"> </i><span class="treeswitch" treebank="<%= treebankId %>" id="<%= id %>">Tree View</span></b><% } %>
+<% if( treebankId != null&& treebankId.indexOf("t_tree")!=-1){  %>Show in <b><i class="icon-leaf icon-black"> </i><span class="treeswitch" treebank="<%= treebankId %>" id="<%= id %>">Tree View</span></b><br/><% } %>
+
+<%  if( p67IIsReferredToBy.length){ %>
+<span class="textswitch control on" urn="<%= p67IIsReferredToBy[0].ctsurn %>">Go to text passage of event</span>
+<% } %>
 
 <%  if( p4HasTimeSpan.length){ %><h4>Dating</h4><ul>
 <% _.each( p4HasTimeSpan, function(time) { %>
@@ -61,6 +65,12 @@
 
 <%  if( p117OccursDuring.length){ %><h4>Occurs During</h4><ul>
 <% _.each( p117OccursDuring, function(event) { %>
+<li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
+<% });} %>
+</ul>
+
+<%  if( p117iIncludes.length){ %><h4>Includes</h4><ul>
+<% _.each( p117iIncludes, function(event) { %>
 <li><i class="icon-bolt icon-black"></i> <span class="switchview control on" eventId="<%= event.id %>"><% if(event.keyword!=null) { %><%= event.keyword %>: <%= event.value %><% } else { %><%=event.value %><% } %></span> </li>
 <% });} %>
 </ul>

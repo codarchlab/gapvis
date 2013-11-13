@@ -12,7 +12,8 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
         initialize: function(opts) {
             var view = this;
             // listen for state changes
-            view.bindState('change:pageid', view.renderNextPrev, view);
+            view.bindState('change:pageid', view.render, view);
+			 view.bindState('change:pageid', view.revertSection, view);
             view.bindState('change:pageview', view.renderPageView, view);
         },
         
@@ -31,13 +32,15 @@ define(['gv', 'views/BookView'], function(gv, BookView) {
                 pageId = state.get('pageid') || book.firstId(),
                 prev = view.prev = book.prevId(pageId),
                 next = view.next = book.nextId(pageId);
-				state.set('sectionid', null);
+				
             // render
             view.$('.prev').toggleClass('on', !!prev);
             view.$('.next').toggleClass('on', !!next);
             view.$('.page-id').val(pageId);
         },
-        
+        revertSection: function() {
+			state.set('sectionid', null);
+		},
         renderPageView: function() {
             var view = this,
                 pageView = state.get('pageview');

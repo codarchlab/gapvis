@@ -1,4 +1,4 @@
-<div style="vertical-align:middle; height:104px;display:table-cell;"><i class="icon-black icon-<% if (type=="ORGANISATION"){%>group<%} else if (type=="PERSON"){%>user<%} else {%>globe<%} %>"></i> <span class="infowindow-h3 goto-entity"><%= title %></span> <span class="zoom control on">(Zoom In)</span>
+<div style="vertical-align:middle;width:280px;height:104px;display:table-cell;"><i class="icon-black icon-<% if (type=="ORGANISATION"){%>group<%} else if (type=="PERSON"){%>user<%} else {%>globe<%} %>"></i> <span class="infowindow-h3 goto-entity"><%= (title.length>70)?title.substr(0, 67)+"...":title %></span> <span class="zoom control on">(Zoom In)</span>
 <!--<p><span class="control on goto-entity">View Details &gt;&gt;</span><p>-->
 <div class="frequency-bars"></div>
 <p>
