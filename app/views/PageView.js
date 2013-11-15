@@ -71,7 +71,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
 				// Chapter level
 				if (!state.start_array[2]){
 					if (state.get('pageid') == state.start_array[1])
-						this.$("div:not(.text),span[section-id]").addClass("highlight-eventtext");
+						this.$("div:not(.text,.engText),span[section-id]").addClass("highlight-eventtext");
 				}
 				// Passage level
 				else if (!state.start_array[3]){
@@ -84,7 +84,8 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
 					var regex = /\[(\d+)\]/;
 					regex.exec(state.start_array[3]);
 					var indexWord1 = RegExp.$1;
-					var word1 = state.start_array[3].replace(regex,"").replace(/ά/g, "ά").replace(/έ/g, "έ");					
+					var word1 = state.start_array[3].replace(regex,"");
+					word1 = this.replaceDiacritics(word1);					
 					var indexStr1 = this.xIndexOf(word1, text, indexWord1/1);
 					regex.exec(state.end_array[3]);
 					var newText = text.substring(0,(indexStr1/1))+"<span class='highlight-eventtext'>"+word1+"</span>"+text.substr((indexStr1/1)+word1.length-1, text.length-1);
@@ -98,20 +99,36 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
 				// Chapter level
 				if (!state.start_array[2] && !state.end_array[2]){
 					 if (state.get('pageid')>= (state.start_array[1])/1 && state.get('pageid')<= (state.end_array[1])/1){
-						this.$("div:not(.text),span[section-id]").addClass("highlight-eventtext");						
+						this.$("div:not(.text,.engText),span[section-id]").addClass("highlight-eventtext");						
 						}
 				}
 				// Passage level
 				else if (!state.start_array[3]&& !state.end_array[3]){
+					// start and end are in the same chapter
 					if (state.start_array[1]==state.end_array[1]){
 						for (i=state.start_array[2]; i<=state.end_array[2]; i++){
 							this.$("span[section-id='"+i+"'],."+i).addClass("highlight-eventtext");
 						}
 					}
 					else {
+						// start and end are in different chapters -> three possibilities:
+						// URN starts before and ends after current chapter
+						if ((state.start_array[1]/1)<(state.get('pageid')/1)&& (state.get('pageid')/1)<(state.end_array[1]/1)){
+							this.$("div:not(.text,.engText),span[section-id]").addClass("highlight-eventtext");
+						}
+						// URN starts in current chapter
+						else if ((state.start_array[1]/1) == state.get('pageid')) {
+							for (i=state.start_array[2]; i<=this.$('span[section-id]').length; i++){
+								this.$("span[section-id='"+i+"'],."+i).addClass("highlight-eventtext");
+							}
+						}
+						// URN ends in current chapter
+						else if ((state.end_array[1]/1) == state.get('pageid')){
+							for (i=1; i<=state.end_array[2]; i++){
+								this.$("span[section-id='"+i+"'],."+i).addClass("highlight-eventtext");
+							}
+						}
 						
-						this.$('h4:gt('+(state.start_array[2]/1)+'),h4:eq('+(state.start_array[2]/1)+'),div:gt('+(state.start_array[2]/1)+
-						'),div:eq('+(state.start_array[2]/1)+')').addClass("highlight-eventtext");
 					}	
 				}
 				// Word level
