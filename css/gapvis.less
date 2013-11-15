@@ -23,7 +23,7 @@
 @view-margin-bottom: @footer-height + @view-padding-bottom;
 @view-margin-right: 20px;
 @view-margin-left: 20px;
-@general-height: 600px;
+@general-height: 700px;
 
 // ---------------------------------------------------
 // Special Colors
@@ -42,7 +42,7 @@ html, body {
 }
 h1, h2, h3, h4 {
     color: @daiHeadlineBlack;
-	line-height: 25px;
+//	line-height: 25px;
 }
 h1{
  .book-title {
@@ -114,13 +114,13 @@ footer {
 
 .top {
    //position: absolute;
-    background: #ffffff;
-    top: @view-margin-top;
+   
+   // top: @view-margin-top;
     // width & height set with JS
     -moz-border-radius: 15px;
-    border-radius: 15px;
+   
     overflow: hidden;
-    margin: 0 @view-margin-right 0 @view-margin-left;
+    margin: 50px @view-margin-right 0 @view-margin-left;
     
     &.loading * {
         display: none;
@@ -133,7 +133,7 @@ footer {
 .layout {
     //position: absolute;
     top: @view-padding-top;
-  height: 800px;
+    height: 900px;
     //bottom: @view-padding-bottom;
     left: @view-padding-left;
     right: @view-padding-right;
@@ -153,7 +153,7 @@ footer {
        // position: absolute;
         top: 0;
         bottom: 0;
-        width: 100%;
+       // width: 100%;
         // height set with JS
     }
 }
@@ -288,10 +288,10 @@ footer {
 
 
 // index page book list
-.index-overview-template {
+/*.index-overview-template {
     overflow: auto;
     height: 800px;
-}
+}*/
 
 // summary page map view
 .summary-map-view, .entity-map-view {
@@ -635,7 +635,7 @@ div.timeline-event-label {
 }
 #legend {
 	position: absolute;
-	top: 275px;
+	top: 325px;
    right: 58px;
    z-index:199;
    padding: 10px;

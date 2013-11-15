@@ -1,5 +1,5 @@
-<i class="icon-black icon-<% if (type=="ORGANISATION"){%>group<%} else if (type=="PERSON"){%>user<%} else {%>globe<%} %>"></i> <span class="" style="margin-bottom:0px;padding-bottom:0px;font-weight:bold;"><%= type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() %></span> <h2><%= title %></h2>
-<h3><%= ortsbezug %></h3>
+<i class="icon-black icon-<% if (type=="ORGANISATION"){%>group<%} else if (type=="PERSON"){%>user<%} else {%>globe<%} %>"></i> <span class="" style="margin-bottom:0px;padding-bottom:0px;font-weight:bold;"><%= type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() %></span> <h3><%= title %></h3>
+<%= ortsbezug %>
 <div class="frequency-bars"></div>
 <p>
     <span class="frequency"><%= frequency %></span> reference<%= frequency == 1 ? "" : "s" %> | <span class="change-this control on">Report a problem with this record</span>
