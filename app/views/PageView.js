@@ -163,7 +163,7 @@ define(['gv', 'views/BookView', 'util/slide'], function(gv, BookView, slide) {
 								partToHighlight = text.substring(indexStr1, (indexStr2/1)+word2.length);
 								newText = text.substring(0,(indexStr1/1))+"<span class='highlight-eventtext'>"+partToHighlight+"</span>"+text.substring((indexStr2/1)+word2.length, text.length);
 							}					
-							this.$('div.'+state.start_array[2]).html(newText);
+							this.$('div.text').find('div.'+state.start_array[2]).html(newText);
 						}
 						
 					}

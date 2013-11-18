@@ -28,7 +28,7 @@ define(['gv'], function(gv) {
 			+"."+this.get('pageid')
 			+((this.get('sectionid')!=null&&this.get('sectionid').length>0)?("."+this.get('sectionid')):"")
 		},
-		setCtsUrn: function(urnString){
+		setCtsUrn: function(urnString, changePage){
 			if (urnString && urnString.length){
 				var urn = new CanonicalReference(urnString);
 				
@@ -56,7 +56,9 @@ define(['gv'], function(gv) {
 							/*if	(this.start_array[2]){	
 								this.set( 'sectionid', this.start_array[2] );
 							}*/
-							//this.set({ pageid: this.start_array[1] });	
+							if (changePage){
+								this.set({ pageid: this.start_array[1] });	
+							}
 							this.set({view: 'reading-view'});
 							this.set({ 'readingview': 'eventlist' });
 					}

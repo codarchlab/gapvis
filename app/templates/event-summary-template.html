@@ -1,5 +1,5 @@
-<h2><i class="icon-bolt icon-black"></i> <% if(keyword!=null) { %><%= keyword %>: <%= value %><% } else { %><%=value %><% } %></h2>
-<h3><b>Event Type: </b><%= P2HasType %></h3>
+<h3><i class="icon-bolt icon-black"></i> <% if(keyword!=null) { %><%= keyword %>: <%= value %><% } else { %><%=value %><% } %></h3>
+<p><b>Event Type: </b><%= P2HasType %></p>
 
 <% if( treebankId != null&& treebankId.indexOf("t_tree")!=-1){  %>Show in <b><i class="icon-leaf icon-black"> </i><span class="treeswitch" treebank="<%= treebankId %>" id="<%= id %>">Tree View</span></b><br/><% } %>
 

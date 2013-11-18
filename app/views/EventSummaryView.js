@@ -80,7 +80,7 @@ define(['gv', 'views/BookView'],
         },
 		switchToText: function(evt) {
 			var urnString = $(evt.target).attr('urn');
-			state.setCtsUrn(urnString);
+			state.setCtsUrn(urnString, true);
 		}
     });
     
