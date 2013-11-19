@@ -12,7 +12,7 @@ define(['gv'], function(gv) {
             var view = this;
             // render template
             view.$el.html(view.template);
-           
+           view.$('a.gallery').colorbox({rel:'gal'});
             return view;
         }
         
