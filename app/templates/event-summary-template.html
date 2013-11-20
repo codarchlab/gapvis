@@ -16,14 +16,14 @@
 <%  if( p11HadParticipant.length){ %><h4>Had Participants</h4><ul>
 <% _.each( p11HadParticipant, function(actor) { %>
 <li><i class="icon-<% if (actor.p2HasType == "Group"){ %>group<%} else { %>user<% } %> icon-black"></i>
-<% if (actor.identifier.length){ %><span class="entityswitch control on" entityId="<%= actor.identifier[0].value %>"><%=  actor.value %> / <%=  actor.greekValue %></span><% } else { %> <%=  actor.value %> / <%=  actor.greekValue %><% }%></li>
+<% if (actor.identifier.length&& !actor.notInGapVis){ %><span class="entityswitch control on" entityId="<%= actor.identifier[0].value %>"><%=  actor.value %></span><% } else { %> <%=  actor.value %><% }%></li>
 <% });} %>
 </ul>
 
 <%  if( p7TookPlaceAt.length){ %><h4>Took Place at</h4><ul>
 <% _.each( p7TookPlaceAt, function(place) { %>
 <li><i class="icon-globe icon-black"></i>
-<% if (place.identifier.length){ %><span class="entityswitch control on" entityId="<%= place.identifier[0].value %>"><%=  place.value %> / <%=  place.greekValue %></span><% } else { %> <%=  place.value %> / <%=  place.greekValue %><% }%></li>
+<% if (place.identifier.length && !place.notInGapVis){ %><span class="entityswitch control on" entityId="<%= place.identifier[0].value %>"><%=  place.value %></span><% } else { %> <%=  place.value %><% }%></li>
 <% });} %>
 </ul>
 
