@@ -6,7 +6,6 @@ define(function() {
     // removed in production by uglify
     if (DEBUG) {
         API_ROOT = 'http://nighthorse04.dai-cloud.uni-koeln.de:8080/hellespont';
-        REPORT_URL = '/api/flags/';
         API_DATA_TYPE = 'jsonp';
     }
     
@@ -59,7 +58,6 @@ define(function() {
     gv.settings = _.extend(spf.config, {
         // core settings (set from config)
         API_ROOT: API_ROOT,
-        REPORT_URL: REPORT_URL,
         API_DATA_TYPE: API_DATA_TYPE,
         
          // google maps style settings

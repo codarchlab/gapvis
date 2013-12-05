@@ -1,8 +1,8 @@
 /*
  * Master view for pages
  */
-define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'], 
-    function(gv, BookView, PageView, ChangeLinkView) {
+define(['gv', 'views/BookView', 'views/PageView'], 
+    function(gv, BookView, PageView) {
     
     var state = gv.state;
     
@@ -12,7 +12,6 @@ define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'],
         
         initialize: function() {
             var view = this;
-            view.changeLink = new ChangeLinkView();
             view.render = view.bindReady('render');
             // listen for state changes
             view.bindState('change:pageid', view.render, view);
@@ -20,7 +19,6 @@ define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'],
         
         clear: function() {
             var view = this;
-            view.changeLink.clear();
             BookView.prototype.clear.call(view);
         },
         
@@ -64,38 +62,6 @@ define(['gv', 'views/BookView', 'views/PageView', 'views/ChangeLinkView'],
                 );
             }
             return view;
-        },
-        
-        // UI events
-        
-        events: {
-            'mouseover span.entity':  'uiShowChangeLink',
-            'mouseleave span.entity': 'uiHideChangeLink'
-        },
-        
-        uiShowChangeLink: function(e) {
-            if (!gv.settings.disableChangeLink) {
-                var $entitySpan = $(e.target),
-                    offset = $entitySpan.offset(),
-                    changeLink = this.changeLink;
-                // set the entity and token to edit
-                changeLink.entityId = $entitySpan.attr('data-entity-id');
-                changeLink.token = $entitySpan.text();
-                // clear existing timer, if any
-                changeLink.clearTimer();
-                // show the link
-                changeLink.open(
-                    offset.top, 
-                    offset.left, 
-                    $entitySpan.width(), 
-                    $entitySpan.height()
-                );
-            }
-        },
-        
-        uiHideChangeLink: function() {
-            // start countdown to close
-            this.changeLink.startTimer();
         }
         
     });
