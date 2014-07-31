@@ -166,16 +166,18 @@
     
     <target name="-less-concat-css">
         <echo>Less-ifying and concatenating CSS files</echo>
-        <condition property="css.compress.argument" value="--yui-compress" else="">
+        <condition property="css.compress.argument" value="-x" else="">
             <isset property="css.less.compress"/>
         </condition>
         <for list="${css.less.files}" param="file" trim="true">
             <sequential>
                 <echo>Less-ifying @{file}</echo>
-                <!-- compress -->
+                <!-- create new file -->
+		<touch file="@{file}.min.tmp"/>
+		<!-- compress -->
                 <exec executable="${lessc}" failonerror="true">
                     <arg line="${css.compress.argument}"/>
-                    <arg line="@{file} > @{file}.min.tmp"/>
+                    <arg line="@{file} @{file}.min.tmp"/>
                 </exec>
                 <!-- add to file -->
                 <concat destfile="${css.concat.build}" append="yes">
