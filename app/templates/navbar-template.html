@@ -17,9 +17,12 @@
 					<a class="brand" href="#"><%= title %></a>
 					<div class="nav-collapse pull-left">
 						<ul class="nav">
+							<form id="search-form" class="navbar-search pull-left">
+								<input name = "q" id="searchInput" type="text" class="input-medium search-query span3" placeholder="Suche im Linked Data Interface">
+							</form>
 							<li><a href="http://hellespont.dainst.org/startpage/index.html#description">About Hellespont Project</a></li>
-							<li><a href="http://gapvis.hellespont.dainst.org">GapVis for Hellespont</a></li>
-							<li><a href="http://linkeddata.hellespont.dainst.org">Hellespont Linked Data Interface</a></li>
+							<li><a href="http://gapvis.hellespont.dainst.org">GapVis</a></li>
+							<li><a href="http://linkeddata.hellespont.dainst.org">Linked Data Interface</a></li>
 							<li><a href="http://hellespont.dainst.org/startpage/downloads.html">Downloads and Links</a></li>
 							<li><a href="http://hellespont.dainst.org/startpage/docu.html">Documentation</a></li>
 							<li><a href="http://hellespont.dainst.org/startpage/contact.html">Contact</a></li>
@@ -28,3 +31,10 @@
 				</div>
 			</div>
 		</div>
+		<script>
+		$("#search-form").submit(function() {
+		    var query = $('input[name="q"]').val();
+		    window.location.href = 'http://linkeddata.hellespont.dainst.org/#search?q='+query;
+		    return false;
+		});
+		</script>
